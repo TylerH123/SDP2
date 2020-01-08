@@ -15,10 +15,14 @@ now = datetime. now(). time()
 print("now =", now)
 print("type(now) =", type(now))
 
-def card():
+def getCard():
     request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
-    return(data['deck_id'])
+    deck_id = data['deck_id']
+    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=2'.format(deck_id),headers = headers)
+    response = urlopen(request).read()
+    data = json.loads(response)
+    return(data['cards'][0]['code'])
 
-print(card())
+print(getCard())
