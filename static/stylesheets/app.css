@@ -87,3 +87,13 @@
 body {
   background-color: #303030;
 }
+
+.gameFunds{
+  margin-left: 150px;
+}
+
+.hover-underline-menu {
+  background-color: black;
+  padding-top:10px;
+  padding-bottom:10px;
+}
