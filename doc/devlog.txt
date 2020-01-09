@@ -28,3 +28,5 @@ huangT -- 2020-1-08 18:44
 - updated tables
 - added function to fill an array with user's info
 - updated the fillUserInfo method to update coins according to streak
+- created homepage.js
+- working on javascript code for a simple dice roll gamble method
