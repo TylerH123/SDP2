@@ -11,7 +11,6 @@ This is a site where users can play many different games, such as poker, roulett
 
 <br>
 
-
 ### APIs required (no keys needed!!!):
 - [Deck of Cards](https://docs.google.com/document/d/1oCJhl-NoNNpekMLd4C4jBXhpL9xvm6ZrVIdfoqbq-Vc/edit) - create games that requires the usage of a deck of cards (Blackjack, Poker)
 - [Sudoku](no link yet) - use a template of sudoku games for one of our minigames 
@@ -38,4 +37,5 @@ This is a site where users can play many different games, such as poker, roulett
    python3 app.py
    ```
    Once the Flask is running, open http://127.0.0.1:5000/ in the browser
+   
 5. If you are running a virtual environment, deactivate it by entering `deactivate` into the command line.
