@@ -1,3 +1,8 @@
+from flask import Flask, render_template
+from urllib.request import urlopen, Request
+import json
+from datetime import datetime
+
 headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -6,11 +11,6 @@ headers = {
     'Accept-Language': 'en-US,en;q=0.8',
     'Connection': 'keep-alive'
 }
-
-from flask import Flask, render_template
-from urllib.request import urlopen, Request
-import json
-from datetime import datetime
 
 def getDate(): #returns date as a string in the format mm-dd-yyyy
     date = datetime.now().date() #gets the date

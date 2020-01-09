@@ -9,11 +9,9 @@ import sqlite3
 import urllib, json
 import db as dbase  #helper functions found in db.py
 app = Flask(__name__)
-app = Flask(__name__)
 app.secret_key = "adsfgt"
 
 session = {}
-userInfo = {}
 
 @app.route("/") #Initally loaded page
 def root():
