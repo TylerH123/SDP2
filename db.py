@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request,  session, redirect, url_for, flash
 import sqlite3 # enable control of an sqlite database
+import functions as func
 
 userID = -1
 userInfo = {}
@@ -20,7 +21,7 @@ def addUser(): #adds user to database
                 return False
             else:
                 id = getTableLen("users") #gives the user the next availabe id
-                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0.0, 0, "01-08-2020", "False")) #different version of format
+                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0.0, 0, "new")) #different version of format
                 db.commit()
                 db.close()
                 flash("Register Success!")
@@ -42,6 +43,7 @@ def login(): #login function
             if request.form['password'] == p[0]: #compare passwords
                 userID = bar[0][1][0]
                 fillUserInfo()
+                update()
                 return True
             else:
                 flash("Error! Incorrect password")
@@ -71,7 +73,7 @@ def update(): #updates a user's info
     dbfile = "data.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
-    arr = ['coins','streak','timeStmp','daily']
+    arr = ['coins','streak','timeStmp']
     idx = 0
     while idx < len(arr):
         command = "UPDATE users SET {} = \"{}\" WHERE id = {};"
@@ -109,4 +111,12 @@ def fillUserInfo(): #fills userInfo with info on the current user
         userInfo['coins'] = bar[3]
         userInfo['streak'] = bar[4]
         userInfo['timeStmp'] = bar[5]
-        userInfo['daily'] = bar[6]
+    if userInfo['timeStmp'] == "new" or userInfo['streak'] == 0:
+        userInfo['streak'] += 1
+        userInfo['coins'] += 500
+    elif func.checkDate(userInfo['timeStmp']) == 1:
+        userInfo['streak'] += 1
+        userInfo['coins'] += 500
+    elif func.checkDate(userInfo['timeStmp']) == 2:
+        userInfo['streak'] = 0
+    userInfo['timeStmp'] = func.getDate()

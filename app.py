@@ -69,7 +69,6 @@ def home(): #display home page of website
     if 'user' in session:
         return render_template("homepage.html",
                                 coins = dbase.userInfo['coins'],
-                                daily = dbase.userInfo['daily'],
                                 timeStmp = dbase.userInfo['timeStmp'],
                                 streak = dbase.userInfo['streak'])
     else:

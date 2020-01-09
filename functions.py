@@ -17,22 +17,13 @@ def getDate(): #returns date as a string in the format mm-dd-yyyy
     date = date.strftime("%m-%d-%Y") #converts to string
     return date
 
-def checkDate(): #compares the difference in dates
-    t1 = datetime.now().date().strftime("%m-%d-%Y") #converts to string
-    t2 = datetime.now().date().strftime("%m-%d-%Y")
-    t3 = int(t1.split("-")[0])
-    t4 = int(t2.split("-")[0])
-    print(t3)
-
-def checkDate2(date): #compares the difference in dates
+def checkDate(date): #compares the difference in dates
     prevDate = date.split("-")
     nowDate = getDate().split("-")
-    if int(nowDate[0]) - int(prevDate[0]) == 0 and int(nowDate[1]) - int(prevDate[1]) == 0:
-        return 0
     if int(nowDate[0]) - int(prevDate[0]) == 0 and int(nowDate[1]) - int(prevDate[1]) == 1:
         return 1
-    else:
-        return 2 
+    elif int(nowDate[1]) - int(prevDate[1]) > 0 or int(nowDate[0]) - int(prevDate[0]) > 1:
+        return 2
 
 def getCard():
     request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
