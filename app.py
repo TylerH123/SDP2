@@ -2,7 +2,7 @@
 #huangT, chenE, linW, wuJ
 #SoftDev1 pd2
 #P #02: The End
-#2019-1-??
+#2019-1-16
 
 from flask import Flask, render_template, request,  session, redirect, url_for, flash
 import sqlite3
@@ -44,13 +44,11 @@ def auth():
     if request.form['submit_button'] == "Login": #if sent here by logging in
         if dbase.login():
             session['user'] = request.form['username'] #stores the user in the session
-            dbase.fillUserInfo(userInfo) #gives easy access to user information via userInfo variable
             return redirect(url_for("home"))
         else:
             return redirect(url_for("login"))
     if request.form['submit_button'] == "Update Info": #If updating info, fill in db
-        dbase.update()
-        dbase.fillUserInfo(userInfo) #gives easy access to user information via userInfo variable
+        dbase.updatePass()
         return redirect(url_for("home"))
     if request.form['submit_button'] == "Update Key" or request.form['submit_button'] == "Add Key":
         dbase.updateAPIKey(request.form['submit_button'])
@@ -61,6 +59,7 @@ def logout():
     if 'user' in session:
         session.pop('user')
         dbase.userID = -1
+        dbase.update()
     flash("Logout Success!")
     flash("index")
     return redirect(url_for("root"))
@@ -68,7 +67,11 @@ def logout():
 @app.route("/home")
 def home(): #display home page of website
     if 'user' in session:
-        return render_template("homepage.html")
+        return render_template("homepage.html",
+                                coins = dbase.userInfo['coins'],
+                                daily = dbase.userInfo['daily'],
+                                timeStmp = dbase.userInfo['timeStmp'],
+                                streak = dbase.userInfo['streak'])
     else:
         return redirect(url_for("root"))
 

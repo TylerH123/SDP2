@@ -2,6 +2,7 @@ from flask import Flask, render_template, request,  session, redirect, url_for, 
 import sqlite3 # enable control of an sqlite database
 
 userID = -1
+userInfo = {}
 
 def addUser(): #adds user to database
     if request.form['password'] != request.form['password2']:
@@ -19,10 +20,8 @@ def addUser(): #adds user to database
                 return False
             else:
                 id = getTableLen("users") #gives the user the next availabe id
-                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0, 0, 0)) #different version of format
+                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0.0, 0, "01-08-2020", "False")) #different version of format
                 db.commit()
-                # c.execute("INSERT INTO apiKeys VALUES(?, ?, ?, ?);", (id, "", "", ""))
-                # db.commit()
                 db.close()
                 flash("Register Success!")
                 flash("index")
@@ -42,6 +41,7 @@ def login(): #login function
         for p in listPass:
             if request.form['password'] == p[0]: #compare passwords
                 userID = bar[0][1][0]
+                fillUserInfo()
                 return True
             else:
                 flash("Error! Incorrect password")
@@ -50,26 +50,45 @@ def login(): #login function
         flash("Error! Username does not exist")
         return False
 
-def update(): #updates a user's info based on the info provided
+def updatePass(): #updates a user's password
     dbfile = "data.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
     blank = True
-    arr = ['firstName','lastName','username','password','location', 'address']
-    idx = 0
-    while idx < len(arr):
-        if request.form[arr[idx]] != "":
-            command = "UPDATE users SET {} = \"{}\" WHERE id = {};"
-            c.execute(command.format(arr[idx],request.form[arr[idx]],userID))
-            blank = False
-            db.commit()
-        idx += 1
+    if request.form['password'] != "":
+        command = "UPDATE users SET {} = \"{}\" WHERE id = {};"
+        c.execute(command.format('password',request.form['password'],userID))
+        blank = False
+        db.commit()
     if not blank:
         flash("Update Success!")
     else:
         flash("Nothing has been updated.")
     db.commit()
     db.close()
+
+def update(): #updates a user's info
+    dbfile = "data.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    arr = ['coins','streak','timeStmp','daily']
+    idx = 0
+    while idx < len(arr):
+        command = "UPDATE users SET {} = \"{}\" WHERE id = {};"
+        c.execute(command.format(arr[idx],userInfo[arr[idx]],userID))
+        db.commit()
+        idx += 1
+    db.commit()
+    db.close()
+
+def getInfo(game,info): #get the specified info for a given game
+    dbfile = "data.db"
+    db = sqlite3.connect(dbfile)
+    c = db.cursor()
+    command = "SELECT {} FROM info WHERE gameName = \"{}\";"
+    inf = c.execute(command.format(info,game))
+    for target in inf:
+        return target[0]
 
 def getTableLen(tbl): #returns the length of a table
     dbfile = "data.db"
@@ -80,44 +99,14 @@ def getTableLen(tbl): #returns the length of a table
     for line in q:
         return line[0]
 
-def fillUserInfo(arr): #@param arr is an array and fills this array with info on the current user
+def fillUserInfo(): #fills userInfo with info on the current user
     dbfile = "data.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
     q = c.execute("SELECT * FROM users WHERE id = {};".format(userID))
     for bar in q:
-        arr['username'] = bar[1]
-
-def updateAPIKey(button): #@param button determines which API to get updated
-    dbfile = "data.db"
-    db = sqlite3.connect(dbfile)
-    c = db.cursor()
-    arr = ['openWeather', 'googleCloud', 'locationIQ']
-    idx = 0
-    blank = True
-    while idx < len(arr):
-        if arr[idx] in request.form and request.form[arr[idx]] != "":
-            command = "UPDATE apiKeys SET {} = \"{}\" WHERE id = {};"
-            c.execute(command.format(arr[idx],request.form[arr[idx]],userID))
-            blank = False
-            db.commit()
-        idx += 1
-    if not blank:
-        if button == 'Update Key':
-            flash("Key Updated Successfully!")
-        else:
-            flash("Key Added Successfully!")
-    else:
-        flash("No Key Added")
-    db.commit()
-    db.close()
-
-def getAPIKey(api): #@param api is which api key to retrieve from the database
-    key = ''
-    dbfile = "data.db"
-    db = sqlite3.connect(dbfile)
-    c = db.cursor()
-    q = c.execute("SELECT {} FROM apiKeys WHERE id = {};".format(api,userID))
-    for bar in q:
-        key = bar[0]
-    return key
+        userInfo['username'] = bar[1]
+        userInfo['coins'] = bar[3]
+        userInfo['streak'] = bar[4]
+        userInfo['timeStmp'] = bar[5]
+        userInfo['daily'] = bar[6]
