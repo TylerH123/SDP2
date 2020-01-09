@@ -30,3 +30,8 @@ huangT -- 2020-1-08 18:44
 - updated the fillUserInfo method to update coins according to streak
 - created homepage.js
 - working on javascript code for a simple dice roll gamble method
+
+wuJ -- 2020-1-09 00:30
+- started roulette game
+- created random number generator from 0 to 36
+- identified whether the number is red or black based on even and odds
