@@ -35,3 +35,16 @@ wuJ -- 2020-1-09 00:30
 - started roulette game
 - created random number generator from 0 to 36
 - identified whether the number is red or black based on even and odds
+
+
+huangT -- 2020-1-09 8:44
+- finished js function to send outputs of dice roll to python
+
+huangT -- 2020-1-09 17:39
+- tuned deck method to get a new deck upon hitting 0 cards
+- added images of all cards
+- added blackjack.html
+- added script to blackjack.html to display cards
+- created new routes for blackjack
+- added image for blackjack
+- updated getting card method

@@ -4,10 +4,11 @@
 #P #02: The End
 #2019-1-16
 
-from flask import Flask, render_template, request,  session, redirect, url_for, flash
+from flask import Flask, render_template, request,  session, redirect, url_for, flash, Response
 import sqlite3
-import urllib, json
+import urllib, json, sys
 import db as dbase  #helper functions found in db.py
+import functions as func
 app = Flask(__name__)
 app.secret_key = "adsfgt"
 
@@ -62,9 +63,11 @@ def logout():
     flash("index")
     return redirect(url_for("root"))
 
-@app.route("/home")
+@app.route("/home", methods = ['POST','GET'])
 def home(): #display home page of website
     if 'user' in session:
+        # read json + reply
+        print(dbase.userInfo['coins'])
         return render_template("homepage.html",
                                 coins = dbase.userInfo['coins'],
                                 timeStmp = dbase.userInfo['timeStmp'],
@@ -80,6 +83,30 @@ def about():
 def howToUse():
     return render_template("howToUse.html")
 
+#@app.route("/dice", methods=['POST'])
+#def dice():
+#    data = request.json
+#    win = func.checkDiceWin(data)
+#    if (win):
+#        dbase.userInfo['coins'] += 100;
+#    else:
+#        dbase.userInfo['coins'] -= 100;
+#    return redirect(url_for("home"))
+
+@app.route("/blackjack")
+def blackjack():
+    return render_template("blackjack.html")
+
+@app.route("/blackjack/<card>")
+def hit(card):
+    img = "../static/images/deck/" + card + ".png"
+    return render_template("blackjack.html", cardImg = img)
+
+@app.route("/drawCard")
+def drawCard():
+    card = func.getCard()
+    url = "/blackjack/" + card[0]['code']
+    return redirect(url)
 
 if __name__ == "__main__":
     app.debug = True

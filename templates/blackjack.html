@@ -18,10 +18,21 @@
       </ul>
     </nav>
     MONEY: ${{ coins }} <br>
-    LAST ACCESSED: {{ timeStmp }} <br>
-    STREAK: {{ streak }} <br>
-    <a href="/blackjack">
-      <img src="../static/images/blackjack.jpeg">
-    </a>
+    <form action="/drawCard">
+      <button id="drawCard">DRAW CARD</button>
+    </form>
+    <div id="cards">
+    <img src="../static/images/deck/8H.png">
+    </div>
+    <script>
+      var blackjack = function(){
+        var ele = document.createElement('img');
+        ele.src =  '{{ cardImg }}';
+        console.log('{{ cardImg }}')
+        document.getElementById('cards').appendChild(ele);
+      }
+      var button = document.getElementById("drawCard");
+      button.addEventListener('click', function(){blackjack()});
+    </script>
   </body>
 </html>
