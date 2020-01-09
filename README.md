@@ -9,7 +9,6 @@ This is a site where users can play many different games, such as poker, roulett
 - Ethan: Backend Flask
 - Jionghao: Frontend
 
-<br>
 
 ### APIs required (no keys needed!!!):
 - [Deck of Cards](https://docs.google.com/document/d/1oCJhl-NoNNpekMLd4C4jBXhpL9xvm6ZrVIdfoqbq-Vc/edit) - create games that requires the usage of a deck of cards (Blackjack, Poker)
