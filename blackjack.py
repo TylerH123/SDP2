@@ -15,6 +15,7 @@ deck = []
 playerDeck = []
 dealerDeck = []
 turn = "player"
+gameStatus = "ingame"
 
 def getNewDeck():
     request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
@@ -33,14 +34,16 @@ def addCard(d):
     deck.pop(0)
 
 def start():
-    playerDeck.append((deck[0]['value'],deck[0]['image']))
-    deck.pop(0)
-    playerDeck.append((deck[0]['value'],deck[0]['image']))
-    deck.pop(0)
-    dealerDeck.append((deck[0]['value'],deck[0]['image'],"unflipped"))
-    deck.pop(0)
-    dealerDeck.append((deck[0]['value'],deck[0]['image'],"flipped"))
-    deck.pop(0)
+    if len(playerDeck) < 2:
+        playerDeck.append((deck[0]['value'],deck[0]['image']))
+        deck.pop(0)
+        playerDeck.append((deck[0]['value'],deck[0]['image']))
+        deck.pop(0)
+    if len(dealerDeck) < 2:
+        dealerDeck.append((deck[0]['value'],deck[0]['image'],"unflipped"))
+        deck.pop(0)
+        dealerDeck.append((deck[0]['value'],deck[0]['image'],"flipped"))
+        deck.pop(0)
 
 def clearDeck(d):
     if d == "all":
@@ -65,6 +68,16 @@ def checkTotal(deck):
 
 def dealerTurn():
     dealerDeck.pop(0)
-    deal    erDeck.insert(0, (deck[0]['value'],deck[0]['image'],"flipped"))
+    dealerDeck.insert(0, (deck[0]['value'],deck[0]['image'],"flipped"))
     while checkTotal(dealerDeck) < 17:
+        addCard(dealerDeck)
+
+def play():
+    global gameStatus
+    if turn == "player" and checkTotal(playerDeck) < 21:
+        addCard(playerDeck)
+    if checkTotal(playerDeck) > 21:
+        gameStatus = "lost"
+
+    if turn == "dealer" and checkTotal(playerDeck) < 21:
         addCard(dealerDeck)

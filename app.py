@@ -117,15 +117,14 @@ def loadDeck():
 
 @app.route("/blackjack/hit")
 def hit():
-    if bj.turn == "player":
-        bj.addCard(bj.playerDeck)
+    bj.play()
     return redirect(url_for("blackjack"))
 
 
-@app.route("/blackjack/fold")
-def fold():
+@app.route("/blackjack/stand")
+def stand():
     bj.turn = "dealer"
-    bj.dealerTurn()
+    play()
     return redirect(url_for("blackjack"))
 
 @app.route("/wheel")
