@@ -58,8 +58,8 @@ def auth():
 def logout():
     if 'user' in session:
         session.pop('user')
-        dbase.userID = -1
         dbase.update()
+        dbase.userID = -1
         bj.clearDeck("all")
     flash("Logout Success!")
     flash("index")
@@ -113,18 +113,20 @@ def loadDeck():
     if len(bj.deck) == 0:
         bj.getNewDeck()
     bj.start()
+    bj.checkBJ()
     return redirect(url_for("blackjack"))
 
 @app.route("/blackjack/hit")
 def hit():
-    bj.play()
+    if bj.gameStatus == "ingame":
+        bj.play()
     return redirect(url_for("blackjack"))
 
 
 @app.route("/blackjack/stand")
 def stand():
     bj.turn = "dealer"
-    play()
+    bj.play()
     return redirect(url_for("blackjack"))
 
 @app.route("/wheel")

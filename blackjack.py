@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from urllib.request import urlopen, Request
 import json
+import db as dbase
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
@@ -18,32 +19,37 @@ turn = "player"
 gameStatus = "ingame"
 
 def getNewDeck():
-    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
+    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2',headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     deckID = data['deck_id']
-    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=52'.format(deckID),headers = headers)
+    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=104'.format(deckID),headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     deck.extend(data['cards'])
 
-def addCard(d):
+def addCard(d,f):
     if len(deck) == 0:
         getNewDeck()
-    d.append((deck[0]['value'],deck[0]['image']))
+    if (d == playerDeck):
+        d.append((deck[0]['value'],deck[0]['image'],f))
+    else:
+        d.append((deck[0]['value'],deck[0]['image'],f))
     deck.pop(0)
 
 def start():
-    if len(playerDeck) < 2:
-        playerDeck.append((deck[0]['value'],deck[0]['image']))
-        deck.pop(0)
-        playerDeck.append((deck[0]['value'],deck[0]['image']))
-        deck.pop(0)
+    global gameStatus, turn
+    gameStatus = "ingame"
+    turn = "player"
+    #print(gameStatus + " s")
+    #print(turn + " s")
+    clearDeck(playerDeck)
+    clearDeck(dealerDeck)
+    while len(playerDeck) < 2:
+        addCard(playerDeck,"flipped")
     if len(dealerDeck) < 2:
-        dealerDeck.append((deck[0]['value'],deck[0]['image'],"unflipped"))
-        deck.pop(0)
-        dealerDeck.append((deck[0]['value'],deck[0]['image'],"flipped"))
-        deck.pop(0)
+        addCard(dealerDeck,"unflipped")
+        addCard(dealerDeck,"flipped")
 
 def clearDeck(d):
     if d == "all":
@@ -67,17 +73,39 @@ def checkTotal(deck):
     return val
 
 def dealerTurn():
+    tup = (dealerDeck[0][0],dealerDeck[0][1],"flipped")
     dealerDeck.pop(0)
-    dealerDeck.insert(0, (deck[0]['value'],deck[0]['image'],"flipped"))
+    dealerDeck.insert(0, tup)
     while checkTotal(dealerDeck) < 17:
-        addCard(dealerDeck)
+        addCard(dealerDeck,"flipped")
 
 def play():
     global gameStatus
-    if turn == "player" and checkTotal(playerDeck) < 21:
-        addCard(playerDeck)
-    if checkTotal(playerDeck) > 21:
-        gameStatus = "lost"
+    #print(gameStatus)
+    #print(playerDeck)
+    #print(turn)
+    if gameStatus == "ingame":
+        #print(playerDeck)
+        if checkTotal(playerDeck) < 21:
+            if turn == "player":
+                addCard(playerDeck,"flipped")
+            if turn == "dealer":
+                dealerTurn()
+        if checkTotal(playerDeck) > 21:
+            #print(checkTotal(playerDeck))
+            gameStatus = "lost"
+            dbase.userInfo['coins'] -= 100
+            gameStatus = "standby"
+        if turn == "dealer":
+            if checkTotal(playerDeck) == checkTotal(dealerDeck):
+                gameStatus = "tie"
+            if checkTotal(playerDeck) > checkTotal(dealerDeck):
+                gameStatus = "win"
+                dbase.userInfo['coins'] += 150
+                gameStatus = "standby"
 
-    if turn == "dealer" and checkTotal(playerDeck) < 21:
-        addCard(dealerDeck)
+def checkBJ():
+    if (playerDeck[0][0] == "ACE" or playerDeck[1][0] == "ACE") and checkTotal(playerDeck) == 21:
+        gameStatus = "win"
+        dbase.userInfo['coins'] += 150
+        gameStatus = "standby"

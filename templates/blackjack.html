@@ -5,7 +5,6 @@
   <!-- Compressed CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
   <link rel="stylesheet" href="../static/stylesheets/app.css">
-  <link rel="stylesheet" href="../static/stylesheets/app.css">
   <title>Homepage</title>
 </head>
 <body>
@@ -20,10 +19,10 @@
   Your Total: {{ total }} <br>
   Dealer Total: {{ dtotal }} <br>
   <form action="/blackjack/hit">
-    <button class="bjbutton">Hit</button>
-  </form> <br>
+    <button class="button large">Hit</button>
+  </form>
   <form action="/blackjack/stand">
-    <button class="bjbutton">Stand</button>
+    <button class="button large">Stand</button>
   </form>
   <div id="player">
     {% for card in cards %}

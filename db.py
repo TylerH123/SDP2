@@ -21,7 +21,7 @@ def addUser(): #adds user to da tabase
                 return False
             else:
                 id = getTableLen("users") #gives the user the next availabe id
-                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0.0, 0, "new")) #different version of format
+                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0, 0, "new")) #different version of format
                 db.commit()
                 db.close()
                 flash("Register Success!")
@@ -81,7 +81,6 @@ def update(): #updates a user's info
         c.execute(command.format(arr[idx],userInfo[arr[idx]],userID))
         db.commit()
         idx += 1
-    db.commit()
     db.close()
 
 def getInfo(game,info): #get the specified info for a given game

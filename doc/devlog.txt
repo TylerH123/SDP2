@@ -54,4 +54,8 @@ huangT -- 2020-1-09 19:21
 - cleaned up blackjack routes
 - successfully adds cards to blackjack.html when hitting
 - moved blackjack functions into blackjack.py
-- added a dealer to blackjack and a fold button
+- added a dealer to blackjack and a stand button
+
+huangT -- 2020-1-10 08:43
+- added gamestatus and turn to blackjack
+- added a function to check for win/lost/tie 
