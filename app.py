@@ -122,11 +122,17 @@ def hit():
         bj.play()
     return redirect(url_for("blackjack"))
 
-
 @app.route("/blackjack/stand")
 def stand():
     bj.turn = "dealer"
     bj.play()
+    return redirect(url_for("blackjack"))
+
+@app.route("/blackjack/reset")
+def bjReset():
+    if bj.gameStatus == "standby":
+        bj.start()
+        print(bj.checkTotal(bj.playerDeck))
     return redirect(url_for("blackjack"))
 
 @app.route("/wheel")

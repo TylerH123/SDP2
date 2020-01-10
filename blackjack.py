@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, flash
 from urllib.request import urlopen, Request
 import json
 import db as dbase
@@ -43,8 +43,8 @@ def start():
     turn = "player"
     #print(gameStatus + " s")
     #print(turn + " s")
-    clearDeck(playerDeck)
-    clearDeck(dealerDeck)
+    clearDeck("player")
+    clearDeck("dealer")
     while len(playerDeck) < 2:
         addCard(playerDeck,"flipped")
     if len(dealerDeck) < 2:
@@ -96,13 +96,27 @@ def play():
             gameStatus = "lost"
             dbase.userInfo['coins'] -= 100
             gameStatus = "standby"
+            flash("YOU LOST!")
         if turn == "dealer":
             if checkTotal(playerDeck) == checkTotal(dealerDeck):
                 gameStatus = "tie"
-            if checkTotal(playerDeck) > checkTotal(dealerDeck):
+                gameStatus = "standby"
+                flash("TIE!")
+            if checkTotal(playerDeck) < 21 and checkTotal(dealerDeck) > 21:
                 gameStatus = "win"
                 dbase.userInfo['coins'] += 150
                 gameStatus = "standby"
+                flash("YOU WON!")
+            elif checkTotal(playerDeck) > checkTotal(dealerDeck):
+                gameStatus = "win"
+                dbase.userInfo['coins'] += 150
+                gameStatus = "standby"
+                flash("YOU WON!")
+            elif checkTotal(dealerDeck) > checkTotal(playerDeck):
+                gameStatus = "lose"
+                dbase.userInfo['coins'] -= 100
+                gameStatus = "standby"
+                flash("YOU LOST!")
 
 def checkBJ():
     if (playerDeck[0][0] == "ACE" or playerDeck[1][0] == "ACE") and checkTotal(playerDeck) == 21:

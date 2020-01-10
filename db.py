@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,  session, redirect, url_for, flash
+from flask import Flask, request 
 import sqlite3 # enable control of an sqlite database
 import functions as func
 

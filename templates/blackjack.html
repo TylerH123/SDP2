@@ -15,14 +15,25 @@
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
-  MONEY: ${{ coins }} <br>
-  Your Total: {{ total }} <br>
-  Dealer Total: {{ dtotal }} <br>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <h1><center class="funds">{{ messages[0] }} </center></h1>
+    {% endif %}
+  {% endwith %}
+  <div class="funds">
+    MONEY: ${{ coins }} <br>
+    Your Total: {{ total }} <br>
+    Dealer Total: {{ dtotal }} <br>
+  </div>
+  <center>
   <form action="/blackjack/hit">
     <button class="button large">Hit</button>
   </form>
   <form action="/blackjack/stand">
     <button class="button large">Stand</button>
+  </form>
+  <form action="/blackjack/reset">
+    <button class="button large">Reset</button>
   </form>
   <div id="player">
     {% for card in cards %}
@@ -38,4 +49,5 @@
       {% endif %}
     {% endfor %}
   </div>
+  </center>
 </body>
