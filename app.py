@@ -69,7 +69,8 @@ def logout():
 def home(): #display home page of website
     if 'user' in session:
         # read json + reply
-        bj.clearDeck("all")
+        bj.clearDeck("player")
+        bj.clearDeck("dealer")
         return render_template("homepage.html",
                                 coins = dbase.userInfo['coins'],
                                 timeStmp = dbase.userInfo['timeStmp'],
@@ -116,12 +117,14 @@ def loadDeck():
 
 @app.route("/blackjack/hit")
 def hit():
-    bj.addCard(bj.playerDeck)
+    if bj.turn == "player":
+        bj.addCard(bj.playerDeck)
     return redirect(url_for("blackjack"))
 
 
 @app.route("/blackjack/fold")
 def fold():
+    bj.turn = "dealer"
     bj.dealerTurn()
     return redirect(url_for("blackjack"))
 

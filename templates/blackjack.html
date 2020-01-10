@@ -20,10 +20,10 @@
   Your Total: {{ total }} <br>
   Dealer Total: {{ dtotal }} <br>
   <form action="/blackjack/hit">
-    <button class="button">Hit</button>
-  </form>
+    <button class="bjbutton">Hit</button>
+  </form> <br>
   <form action="/blackjack/fold">
-    <button class="button">Fold</button>
+    <button class="bjbutton">Fold</button>
   </form>
   <div id="player">
     {% for card in cards %}
@@ -32,7 +32,11 @@
   </div>
   <div id="dealer">
     {% for card in dcards %}
-      <img src={{ card[1] }}>
+      {% if card[2] == "unflipped" %}
+        <img src="../static/images/facedown.jpg">
+      {% else %}
+        <img src={{ card[1] }}>
+      {% endif %}
     {% endfor %}
   </div>
 </body>

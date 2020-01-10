@@ -14,6 +14,7 @@ headers = {
 deck = []
 playerDeck = []
 dealerDeck = []
+turn = "player"
 
 def getNewDeck():
     request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
@@ -36,9 +37,9 @@ def start():
     deck.pop(0)
     playerDeck.append((deck[0]['value'],deck[0]['image']))
     deck.pop(0)
-    dealerDeck.append((deck[0]['value'],deck[0]['image']))
+    dealerDeck.append((deck[0]['value'],deck[0]['image'],"unflipped"))
     deck.pop(0)
-    dealerDeck.append((deck[0]['value'],deck[0]['image']))
+    dealerDeck.append((deck[0]['value'],deck[0]['image'],"flipped"))
     deck.pop(0)
 
 def clearDeck(d):
@@ -63,5 +64,7 @@ def checkTotal(deck):
     return val
 
 def dealerTurn():
+    dealerDeck.pop(0)
+    deal    erDeck.insert(0, (deck[0]['value'],deck[0]['image'],"flipped"))
     while checkTotal(dealerDeck) < 17:
         addCard(dealerDeck)
