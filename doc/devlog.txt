@@ -58,4 +58,8 @@ huangT -- 2020-1-09 19:21
 
 huangT -- 2020-1-10 08:43
 - added gamestatus and turn to blackjack
-- added a function to check for win/lost/tie 
+- added a function to check for win/lost/tie
+
+huangT -- 2020-1-10 11:27
+- added reset button
+- added flashing
