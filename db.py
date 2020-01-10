@@ -5,7 +5,7 @@ import functions as func
 userID = -1
 userInfo = {}
 
-def addUser(): #adds user to database
+def addUser(): #adds user to da tabase
     if request.form['password'] != request.form['password2']:
         flash("Error! Passwords do not match")
         return False

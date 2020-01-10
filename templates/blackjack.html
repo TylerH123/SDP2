@@ -17,12 +17,22 @@
     </ul>
   </nav>
   MONEY: ${{ coins }} <br>
-  <form action="/blackjack/drawCard">
-    <button>DRAW CARD</button>
+  Your Total: {{ total }} <br>
+  Dealer Total: {{ dtotal }} <br>
+  <form action="/blackjack/hit">
+    <button class="button">Hit</button>
   </form>
-  <div id="cards">
+  <form action="/blackjack/fold">
+    <button class="button">Fold</button>
+  </form>
+  <div id="player">
     {% for card in cards %}
-      <img src={{ card['images']['png'] }}>
+      <img src={{ card[1] }}>
+    {% endfor %}
+  </div>
+  <div id="dealer">
+    {% for card in dcards %}
+      <img src={{ card[1] }}>
     {% endfor %}
   </div>
 </body>

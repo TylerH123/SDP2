@@ -12,9 +12,6 @@ headers = {
     'Connection': 'keep-alive'
 }
 
-deck = []
-playerDeck = []
-
 def getDate(): #returns date as a string in the format mm-dd-yyyy
     date = datetime.now().date() #gets the date
     date = date.strftime("%m-%d-%Y") #converts to string
@@ -27,29 +24,3 @@ def checkDate(date): #compares the difference in dates
         return 1
     elif int(nowDate[1]) - int(prevDate[1]) > 0 or int(nowDate[0]) - int(prevDate[0]) > 1:
         return 2
-
-def checkDiceWin(dict):
-    if dict['roll1'] > dict['roll2']:
-        return True
-    else:
-        return False
-
-def getNewDeck():
-    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
-    response = urlopen(request).read()
-    data = json.loads(response)
-    deckID = data['deck_id']
-    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=52'.format(deckID),headers = headers)
-    response = urlopen(request).read()
-    data = json.loads(response)
-    deck.extend(data['cards'])
-
-def addCard():
-    if len(deck) == 0:
-        getNewDeck()
-    playerDeck.append(deck[0])
-    deck.pop(0)
-
-def clearDeck():
-    deck.clear()
-    playerDeck.clear()

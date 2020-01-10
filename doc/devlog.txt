@@ -53,3 +53,5 @@ huangT -- 2020-1-09 19:21
 - removed all javascript from blackjack.html
 - cleaned up blackjack routes
 - successfully adds cards to blackjack.html when hitting
+- moved blackjack functions into blackjack.py
+- added a dealer to blackjack and a fold button

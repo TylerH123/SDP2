@@ -6,9 +6,10 @@
 
 from flask import Flask, render_template, request,  session, redirect, url_for, flash, Response
 import sqlite3
-import urllib, json, sys
+import urllib, json
 import db as dbase  #helper functions found in db.py
 import functions as func
+import blackjack as bj
 app = Flask(__name__)
 app.secret_key = "adsfgt"
 
@@ -59,6 +60,7 @@ def logout():
         session.pop('user')
         dbase.userID = -1
         dbase.update()
+        bj.clearDeck("all")
     flash("Logout Success!")
     flash("index")
     return redirect(url_for("root"))
@@ -67,7 +69,7 @@ def logout():
 def home(): #display home page of website
     if 'user' in session:
         # read json + reply
-        func.clearDeck()
+        bj.clearDeck("all")
         return render_template("homepage.html",
                                 coins = dbase.userInfo['coins'],
                                 timeStmp = dbase.userInfo['timeStmp'],
@@ -95,17 +97,32 @@ def howToUse():
 
 @app.route("/blackjack")
 def blackjack():
-    return render_template("blackjack.html", coins = dbase.userInfo['coins'], cards = func.playerDeck)
+    if 'user' in session:
+        return render_template("blackjack.html",
+                                coins = dbase.userInfo['coins'],
+                                cards = bj.playerDeck,
+                                dcards = bj.dealerDeck,
+                                total = bj.checkTotal(bj.playerDeck),
+                                dtotal = bj.checkTotal(bj.dealerDeck))
+    else:
+        return redirect(url_for("root"))
 
 @app.route("/blackjack/loadDeck")
 def loadDeck():
-    if len(func.deck) == 0:
-        func.getNewDeck()
+    if len(bj.deck) == 0:
+        bj.getNewDeck()
+    bj.start()
     return redirect(url_for("blackjack"))
 
-@app.route("/blackjack/drawCard")
+@app.route("/blackjack/hit")
 def hit():
-    func.addCard()
+    bj.addCard(bj.playerDeck)
+    return redirect(url_for("blackjack"))
+
+
+@app.route("/blackjack/fold")
+def fold():
+    bj.dealerTurn()
     return redirect(url_for("blackjack"))
 
 if __name__ == "__main__":
