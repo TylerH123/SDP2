@@ -3,8 +3,6 @@ from urllib.request import urlopen, Request
 import json
 from datetime import datetime
 
-deck = []
-
 headers = {
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
@@ -13,6 +11,9 @@ headers = {
     'Accept-Language': 'en-US,en;q=0.8',
     'Connection': 'keep-alive'
 }
+
+deck = []
+playerDeck = []
 
 def getDate(): #returns date as a string in the format mm-dd-yyyy
     date = datetime.now().date() #gets the date
@@ -43,11 +44,12 @@ def getNewDeck():
     data = json.loads(response)
     deck.extend(data['cards'])
 
-def getCard():
+def addCard():
     if len(deck) == 0:
         getNewDeck()
-    out = deck[0]
+    playerDeck.append(deck[0])
     deck.pop(0)
-    return(out)
 
-print(getCard())
+def clearDeck():
+    deck.clear()
+    playerDeck.clear()

@@ -67,7 +67,7 @@ def logout():
 def home(): #display home page of website
     if 'user' in session:
         # read json + reply
-        print(dbase.userInfo['coins'])
+        func.clearDeck()
         return render_template("homepage.html",
                                 coins = dbase.userInfo['coins'],
                                 timeStmp = dbase.userInfo['timeStmp'],
@@ -95,18 +95,18 @@ def howToUse():
 
 @app.route("/blackjack")
 def blackjack():
-    return render_template("blackjack.html")
+    return render_template("blackjack.html", coins = dbase.userInfo['coins'], cards = func.playerDeck)
 
-@app.route("/blackjack/<card>")
-def hit(card):
-    img = "../static/images/deck/" + card + ".png"
-    return render_template("blackjack.html", cardImg = img)
+@app.route("/blackjack/loadDeck")
+def loadDeck():
+    if len(func.deck) == 0:
+        func.getNewDeck()
+    return redirect(url_for("blackjack"))
 
-@app.route("/drawCard")
-def drawCard():
-    card = func.getCard()
-    url = "/blackjack/" + card[0]['code']
-    return redirect(url)
+@app.route("/blackjack/drawCard")
+def hit():
+    func.addCard()
+    return redirect(url_for("blackjack"))
 
 if __name__ == "__main__":
     app.debug = True

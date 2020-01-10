@@ -48,3 +48,8 @@ huangT -- 2020-1-09 17:39
 - created new routes for blackjack
 - added image for blackjack
 - updated getting card method
+
+huangT -- 2020-1-09 19:21
+- removed all javascript from blackjack.html
+- cleaned up blackjack routes
+- successfully adds cards to blackjack.html when hitting
