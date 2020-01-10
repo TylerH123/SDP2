@@ -97,7 +97,7 @@ def play():
             dbase.userInfo['coins'] -= 100
             gameStatus = "standby"
             flash("YOU LOST!")
-        if turn == "dealer":
+        if turn == "dealer" and checkTotal(dealerDeck) > 17:
             if checkTotal(playerDeck) == checkTotal(dealerDeck):
                 gameStatus = "tie"
                 gameStatus = "standby"
@@ -123,3 +123,4 @@ def checkBJ():
         gameStatus = "win"
         dbase.userInfo['coins'] += 150
         gameStatus = "standby"
+        flash("BLACKJACK!")
