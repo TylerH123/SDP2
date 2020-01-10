@@ -24,13 +24,3 @@ def checkDate(date): #compares the difference in dates
         return 1
     elif int(nowDate[1]) - int(prevDate[1]) > 0 or int(nowDate[0]) - int(prevDate[0]) > 1:
         return 2
-
-def getCard():
-    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
-    response = urlopen(request).read()
-    data = json.loads(response)
-    deck_id = data['deck_id']
-    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=2'.format(deck_id),headers = headers)
-    response = urlopen(request).read()
-    data = json.loads(response)
-    return(data['cards'][0]['code'])

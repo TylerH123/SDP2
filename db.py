@@ -5,7 +5,7 @@ import functions as func
 userID = -1
 userInfo = {}
 
-def addUser(): #adds user to database
+def addUser(): #adds user to da tabase
     if request.form['password'] != request.form['password2']:
         flash("Error! Passwords do not match")
         return False
@@ -43,6 +43,7 @@ def login(): #login function
             if request.form['password'] == p[0]: #compare passwords
                 userID = bar[0][1][0]
                 fillUserInfo()
+                checkDaily()
                 update()
                 return True
             else:
@@ -111,6 +112,8 @@ def fillUserInfo(): #fills userInfo with info on the current user
         userInfo['coins'] = bar[3]
         userInfo['streak'] = bar[4]
         userInfo['timeStmp'] = bar[5]
+
+def checkDaily():
     if userInfo['timeStmp'] == "new" or userInfo['streak'] == 0 or func.checkDate(userInfo['timeStmp']) == 1:
         userInfo['streak'] += 1
         userInfo['coins'] += 500

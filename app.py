@@ -4,10 +4,12 @@
 #P #02: The End
 #2019-1-16
 
-from flask import Flask, render_template, request,  session, redirect, url_for, flash
+from flask import Flask, render_template, request,  session, redirect, url_for, flash, Response
 import sqlite3
 import urllib, json
 import db as dbase  #helper functions found in db.py
+import functions as func
+import blackjack as bj
 app = Flask(__name__)
 app.secret_key = "adsfgt"
 
@@ -58,13 +60,17 @@ def logout():
         session.pop('user')
         dbase.userID = -1
         dbase.update()
+        bj.clearDeck("all")
     flash("Logout Success!")
     flash("index")
     return redirect(url_for("root"))
 
-@app.route("/home")
+@app.route("/home", methods = ['POST','GET'])
 def home(): #display home page of website
     if 'user' in session:
+        # read json + reply
+        bj.clearDeck("player")
+        bj.clearDeck("dealer")
         return render_template("homepage.html",
                                 coins = dbase.userInfo['coins'],
                                 timeStmp = dbase.userInfo['timeStmp'],
@@ -80,6 +86,51 @@ def about():
 def howToUse():
     return render_template("howToUse.html")
 
+#@app.route("/dice", methods=['POST'])
+#def dice():
+#    data = request.json
+#    win = func.checkDiceWin(data)
+#    if (win):
+#        dbase.userInfo['coins'] += 100;
+#    else:
+#        dbase.userInfo['coins'] -= 100;
+#    return redirect(url_for("home"))
+
+@app.route("/blackjack")
+def blackjack():
+    if 'user' in session:
+        return render_template("blackjack.html",
+                                coins = dbase.userInfo['coins'],
+                                cards = bj.playerDeck,
+                                dcards = bj.dealerDeck,
+                                total = bj.checkTotal(bj.playerDeck),
+                                dtotal = bj.checkTotal(bj.dealerDeck))
+    else:
+        return redirect(url_for("root"))
+
+@app.route("/blackjack/loadDeck")
+def loadDeck():
+    if len(bj.deck) == 0:
+        bj.getNewDeck()
+    bj.start()
+    return redirect(url_for("blackjack"))
+
+@app.route("/blackjack/hit")
+def hit():
+    if bj.turn == "player":
+        bj.addCard(bj.playerDeck)
+    return redirect(url_for("blackjack"))
+
+
+@app.route("/blackjack/fold")
+def fold():
+    bj.turn = "dealer"
+    bj.dealerTurn()
+    return redirect(url_for("blackjack"))
+
+@app.route("/wheel")
+def wheel():
+    return render_template("wheel.html")
 
 if __name__ == "__main__":
     app.debug = True
