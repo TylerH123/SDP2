@@ -128,6 +128,10 @@ def fold():
     bj.dealerTurn()
     return redirect(url_for("blackjack"))
 
+@app.route("/wheel")
+def wheel():
+    return render_template("wheel.html")
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
