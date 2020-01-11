@@ -20,27 +20,12 @@
   </div>
   <center>
   <form action="/blackjack/loadDeck">
-    <input type="number" min="1" patter="\d+" name="wager" placeholder="Wager" required>
+    <p class="funds">Enter wager to play</p>
+    <input type="number" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter wager')" oninput="setCustomValidity('')" required>
     <input type="submit" class="button large" name="start_button" value="Start">
   </form>
   <form action="/blackjack/howto">
     <button class="button large">How To Play</button>
   </form>
   </center>
-  <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-    var elements = document.getElementsByTagName("input");
-    for (var i = 0; i < elements.length; i++) {
-        elements[i].oninvalid = function(e) {
-            e.target.setCustomValidity("");
-            if (!e.target.validity.valid) {
-                e.target.setCustomValidity("Please enter a wager greater than 0");
-            }
-        };
-        elements[i].oninput = function(e) {
-            e.target.setCustomValidity("");
-        };
-    }
-    })
-  </script>
 </body>

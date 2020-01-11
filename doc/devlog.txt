@@ -67,4 +67,6 @@ huangT -- 2020-1-10 11:27
 huangT -- 2020-1-10 18:29
 - added wagering to blackjack
 - added a new html page for blackjack as an initiation page
-- added checking for blackjack and made sure the dealer cards were concealed 
+- added checking for blackjack and made sure the dealer cards were concealed
+- set limits to wager
+- finished blackjack
