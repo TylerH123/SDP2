@@ -101,6 +101,7 @@ body {
 
 .menu.align-center li a {
   color: #00ff00;
+<<<<<<< HEAD
 
 
 .bjbutton {
@@ -289,3 +290,5 @@ button:hover, button:active {
   content: "";
   display: table;
   clear: both; }
+=======
+>>>>>>> cf283ef7cfb5491e46b830ae386c7417f49bf88c

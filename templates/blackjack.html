@@ -5,7 +5,6 @@
   <!-- Compressed CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
   <link rel="stylesheet" href="../static/stylesheets/app.css">
-  <link rel="stylesheet" href="../static/stylesheets/app.css">
   <title>Homepage</title>
 </head>
 <body>
@@ -16,14 +15,25 @@
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
-  MONEY: ${{ coins }} <br>
-  Your Total: {{ total }} <br>
-  Dealer Total: {{ dtotal }} <br>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <h1><center class="funds">{{ messages[0] }} </center></h1>
+    {% endif %}
+  {% endwith %}
+  <div class="funds">
+    Coins: {{ coins }} <br>
+    Your Total: {{ total }} <br>
+    Dealer Total: {{ dtotal }} <br>
+  </div>
+  <center>
   <form action="/blackjack/hit">
-    <button class="bjbutton">Hit</button>
-  </form> <br>
+    <button id="hit_button" class="button large">Hit</button>
+  </form>
   <form action="/blackjack/stand">
-    <button class="bjbutton">Stand</button>
+    <button class="button large">Stand</button>
+  </form>
+  <form action="/blackjack/reset">
+    <button class="button large">Reset</button>
   </form>
   <div id="player">
     {% for card in cards %}
@@ -39,4 +49,7 @@
       {% endif %}
     {% endfor %}
   </div>
+  </center>
+  <script type="text/javascript">
+  </script>
 </body>

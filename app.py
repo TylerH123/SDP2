@@ -58,8 +58,8 @@ def auth():
 def logout():
     if 'user' in session:
         session.pop('user')
-        dbase.userID = -1
         dbase.update()
+        dbase.userID = -1
         bj.clearDeck("all")
     flash("Logout Success!")
     flash("index")
@@ -101,10 +101,11 @@ def blackjack():
     if 'user' in session:
         return render_template("blackjack.html",
                                 coins = dbase.userInfo['coins'],
+                                deck = bj.deck,
                                 cards = bj.playerDeck,
                                 dcards = bj.dealerDeck,
-                                total = bj.checkTotal(bj.playerDeck),
-                                dtotal = bj.checkTotal(bj.dealerDeck))
+                                total = bj.getTotal(bj.playerDeck),
+                                dtotal = bj.getTotal(bj.dealerDeck))
     else:
         return redirect(url_for("root"))
 
@@ -113,10 +114,13 @@ def loadDeck():
     if len(bj.deck) == 0:
         bj.getNewDeck()
     bj.start()
+    bj.checkBJ()
+    bj.wager = int(request.args['wager'])
     return redirect(url_for("blackjack"))
 
 @app.route("/blackjack/hit")
 def hit():
+<<<<<<< HEAD
     if bj.turn == "player":
         bj.addCard(bj.playerDeck)
     return redirect(url_for("blackjack"))
@@ -126,7 +130,32 @@ def hit():
 def fold():
     bj.turn = "dealer"
     bj.dealerTurn()
+=======
+    if bj.gameStatus == "ingame":
+        bj.play()
     return redirect(url_for("blackjack"))
+
+@app.route("/blackjack/stand")
+def stand():
+    bj.turn = "dealer"
+    bj.play()
+>>>>>>> cf283ef7cfb5491e46b830ae386c7417f49bf88c
+    return redirect(url_for("blackjack"))
+
+@app.route("/blackjack/reset")
+def bjReset():
+    if bj.gameStatus == "standby":
+        bj.start()
+        bj.checkBJ()
+        #print(bj.getTotal(bj.playerDeck))
+    return redirect(url_for("blackjack"))
+
+@app.route("/blackjack/bjstart")
+def bjStart():
+    if 'user' in session:
+        return render_template("bjStart.html", coins = dbase.userInfo['coins'])
+    else:
+        return redirect(url_for("root"))
 
 @app.route("/wheel")
 def wheel():
