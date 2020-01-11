@@ -120,7 +120,6 @@ def loadDeck():
 
 @app.route("/blackjack/hit")
 def hit():
-<<<<<<< HEAD
     if bj.turn == "player":
         bj.addCard(bj.playerDeck)
     return redirect(url_for("blackjack"))
@@ -130,7 +129,6 @@ def hit():
 def fold():
     bj.turn = "dealer"
     bj.dealerTurn()
-=======
     if bj.gameStatus == "ingame":
         bj.play()
     return redirect(url_for("blackjack"))
@@ -139,7 +137,6 @@ def fold():
 def stand():
     bj.turn = "dealer"
     bj.play()
->>>>>>> cf283ef7cfb5491e46b830ae386c7417f49bf88c
     return redirect(url_for("blackjack"))
 
 @app.route("/blackjack/reset")
