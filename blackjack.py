@@ -17,6 +17,7 @@ playerDeck = []
 dealerDeck = []
 turn = "player"
 gameStatus = "ingame"
+wager = 0
 
 def getNewDeck():
     request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2',headers = headers)
@@ -32,9 +33,9 @@ def addCard(d,f):
     if len(deck) == 0:
         getNewDeck()
     if (d == playerDeck):
-        d.append((deck[0]['value'],deck[0]['image'],f))
+        d.append((getVal(deck[0]['value']),deck[0]['image'],f))
     else:
-        d.append((deck[0]['value'],deck[0]['image'],f))
+        d.append((getVal(deck[0]['value']),deck[0]['image'],f))
     deck.pop(0)
 
 def start():
@@ -61,22 +62,27 @@ def clearDeck(d):
     elif d == "dealer":
         dealerDeck.clear()
 
-def checkTotal(deck):
+def getVal(card):
+    if card == "JACK" or card == "QUEEN" or card == "KING":
+        return 10
+    elif card == "ACE":
+        return 11
+    else:
+        return int(card)
+
+def getTotal(deck):
     val = 0
+    if turn == "player" and deck == dealerDeck:
+        return deck[1][0]
     for c in deck:
-        if c[0] == "JACK" or c[0] == "QUEEN" or c[0] == "KING":
-            val += 10
-        elif c[0] == "ACE":
-            val += 11
-        else:
-            val += int(c[0])
+        val += c[0]
     return val
 
 def dealerTurn():
     tup = (dealerDeck[0][0],dealerDeck[0][1],"flipped")
     dealerDeck.pop(0)
     dealerDeck.insert(0, tup)
-    while checkTotal(dealerDeck) < 17:
+    while getTotal(dealerDeck) < 17:
         addCard(dealerDeck,"flipped")
 
 def play():
@@ -86,41 +92,41 @@ def play():
     #print(turn)
     if gameStatus == "ingame":
         #print(playerDeck)
-        if checkTotal(playerDeck) < 21:
-            if turn == "player":
-                addCard(playerDeck,"flipped")
-            if turn == "dealer":
+        if turn == "player" and getTotal(playerDeck) < 21:
+            addCard(playerDeck,"flipped")
+            if getTotal(playerDeck) > 21: #check if total of player deck is over 21
+                #print(getTotal(playerDeck))
+                gameStatus = "lost"
+                dbase.userInfo['coins'] -= wager
+                gameStatus = "standby"
+                flash("YOU LOST!")
+        if turn == "dealer":
+            if getTotal(dealerDeck) < 17: #while dealer has a total less than 17, keep drawing
                 dealerTurn()
-        if checkTotal(playerDeck) > 21:
-            #print(checkTotal(playerDeck))
-            gameStatus = "lost"
-            dbase.userInfo['coins'] -= 100
-            gameStatus = "standby"
-            flash("YOU LOST!")
-        if turn == "dealer" and checkTotal(dealerDeck) > 17:
-            if checkTotal(playerDeck) == checkTotal(dealerDeck):
+            if getTotal(dealerDeck) > 21: #comparing totals to determine winner
+                gameStatus = "win"
+                dbase.userInfo['coins'] += int(wager + wager/2)
+                gameStatus = "standby"
+                flash("YOU WON!")
+            elif getTotal(playerDeck) == getTotal(dealerDeck):
                 gameStatus = "tie"
                 gameStatus = "standby"
                 flash("TIE!")
-            if checkTotal(playerDeck) < 21 and checkTotal(dealerDeck) > 21:
+            elif getTotal(playerDeck) > getTotal(dealerDeck):
                 gameStatus = "win"
-                dbase.userInfo['coins'] += 150
+                dbase.userInfo['coins'] += int(wager + wager/2)
                 gameStatus = "standby"
                 flash("YOU WON!")
-            elif checkTotal(playerDeck) > checkTotal(dealerDeck):
-                gameStatus = "win"
-                dbase.userInfo['coins'] += 150
-                gameStatus = "standby"
-                flash("YOU WON!")
-            elif checkTotal(dealerDeck) > checkTotal(playerDeck):
+            elif getTotal(dealerDeck) > getTotal(playerDeck):
                 gameStatus = "lose"
-                dbase.userInfo['coins'] -= 100
+                dbase.userInfo['coins'] -= wager
                 gameStatus = "standby"
                 flash("YOU LOST!")
 
 def checkBJ():
-    if (playerDeck[0][0] == "ACE" or playerDeck[1][0] == "ACE") and checkTotal(playerDeck) == 21:
+    if len(playerDeck) == 2 and getTotal(playerDeck) == 21:
+        print("blackjack")
         gameStatus = "win"
-        dbase.userInfo['coins'] += 150
+        dbase.userInfo['coins'] += int(2 * wager)
         gameStatus = "standby"
         flash("BLACKJACK!")

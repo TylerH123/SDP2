@@ -103,8 +103,8 @@ def blackjack():
                                 coins = dbase.userInfo['coins'],
                                 cards = bj.playerDeck,
                                 dcards = bj.dealerDeck,
-                                total = bj.checkTotal(bj.playerDeck),
-                                dtotal = bj.checkTotal(bj.dealerDeck))
+                                total = bj.getTotal(bj.playerDeck),
+                                dtotal = bj.getTotal(bj.dealerDeck))
     else:
         return redirect(url_for("root"))
 
@@ -114,6 +114,7 @@ def loadDeck():
         bj.getNewDeck()
     bj.start()
     bj.checkBJ()
+    bj.wager = int(request.args['wager'])
     return redirect(url_for("blackjack"))
 
 @app.route("/blackjack/hit")
@@ -132,8 +133,16 @@ def stand():
 def bjReset():
     if bj.gameStatus == "standby":
         bj.start()
-        print(bj.checkTotal(bj.playerDeck))
+        bj.checkBJ()
+        #print(bj.getTotal(bj.playerDeck))
     return redirect(url_for("blackjack"))
+
+@app.route("/blackjack/bjstart")
+def bjStart():
+    if 'user' in session:
+        return render_template("bjStart.html", coins = dbase.userInfo['coins'])
+    else:
+        return redirect(url_for("root"))
 
 @app.route("/wheel")
 def wheel():

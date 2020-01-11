@@ -1,0 +1,46 @@
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Compressed CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
+  <link rel="stylesheet" href="../static/stylesheets/app.css">
+  <title>Homepage</title>
+</head>
+<body>
+  <nav class="hover-underline-menu" data-menu-underline-from-center>
+    <ul class="menu align-center">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/about">Account</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+  <div class="funds">
+    Coins: {{ coins }} <br>
+  </div>
+  <center>
+  <form action="/blackjack/loadDeck">
+    <input type="number" min="1" patter="\d+" name="wager" placeholder="Wager" required>
+    <input type="submit" class="button large" name="start_button" value="Start">
+  </form>
+  <form action="/blackjack/howto">
+    <button class="button large">How To Play</button>
+  </form>
+  </center>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    var elements = document.getElementsByTagName("input");
+    for (var i = 0; i < elements.length; i++) {
+        elements[i].oninvalid = function(e) {
+            e.target.setCustomValidity("");
+            if (!e.target.validity.valid) {
+                e.target.setCustomValidity("Please enter a wager greater than 0");
+            }
+        };
+        elements[i].oninput = function(e) {
+            e.target.setCustomValidity("");
+        };
+    }
+    })
+  </script>
+</body>
