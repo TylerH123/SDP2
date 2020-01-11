@@ -117,19 +117,27 @@ def loadDeck():
 
 @app.route("/blackjack/hit")
 def hit():
-    bj.play()
+    if bj.turn == "player":
+        bj.addCard(bj.playerDeck)
     return redirect(url_for("blackjack"))
 
 
-@app.route("/blackjack/stand")
-def stand():
+@app.route("/blackjack/fold")
+def fold():
     bj.turn = "dealer"
-    play()
+    bj.dealerTurn()
     return redirect(url_for("blackjack"))
 
 @app.route("/wheel")
 def wheel():
     return render_template("wheel.html")
+
+@app.route("/craps")
+def craps():
+    if 'user' in session:
+        return render_template("craps.html")
+    else:
+        return redirect(url_for("root"))
 
 if __name__ == "__main__":
     app.debug = True

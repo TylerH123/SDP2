@@ -1,4 +1,4 @@
-.hero-full-screen {
+/* .hero-full-screen {
   height: 100vh;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -82,13 +82,13 @@
   width: 100%;
   padding-top: 4px;
   padding-bottom: 4px;
-}
+} */
 
 body {
   background-color: #303030;
 }
 
-.funds{
+/* .funds{
   margin-right: 10px;
   color: #00ff00;
 }
@@ -104,7 +104,7 @@ body {
 
 
 .bjbutton {
-  background-color: #4CAF50; /* Green */
+  background-color: #4CAF50; //Green
   border: none;
   color: white;
   padding: 15px 32px;
@@ -112,4 +112,180 @@ body {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-}
+} */
+
+
+
+
+
+
+
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0; }
+
+body {
+  background: #297A4A;
+  perspective: 1000px;
+  color: #ffffcc; }
+
+#pointRollButton {
+  display: none; }
+
+
+/* MODAL THINGS*/
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(170, 133, 57, 0.7);
+  z-index: 9998;
+  color: #ffffcc; }
+
+.modal-overlay,
+.modal {
+  visibility: hidden;
+  opacity: 0; }
+
+
+
+/* BUTTONS */
+.roll-button {
+  margin: 15px auto; }
+
+button {
+  padding: 10px 50px;
+  color: #ffffcc;
+  background: #AA4F39;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 3px #802915;
+  outline: none;
+  transition: .3s; }
+
+button:hover, button:active {
+  outline: none;
+  background: #802915;
+  cursor: pointer;
+  padding: 11px 50px 9px 50px;
+  margin-top: 15px; }
+
+.dice-board {
+  width: 100%;
+  height: 50%; }
+
+/*########## DICE THINGS ###########*/
+.container-dice {
+  display: inline-block;
+  margin-top: 100px;
+  width: 300px;
+  margin: 50px auto 0 auto; }
+
+.dice {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  transition: transform 1s; }
+
+.divot {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 20px;
+  background: #000; }
+
+.dice-one {
+  margin-left: 150px; }
+
+.dice-two {
+  margin-left: 150px; }
+
+.side {
+  background-color: rgba(255, 255, 204, 0.97);
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 2px solid black; }
+
+.side:nth-child(1) {
+  transform: translateZ(100px); }
+
+.side:nth-child(6) {
+  transform: rotateY(180deg) translateZ(100px); }
+
+.side:nth-child(3) {
+  transform: rotateY(90deg) translateZ(100px); }
+
+.side:nth-child(4) {
+  transform: rotateY(-90deg) translateZ(100px); }
+
+.side:nth-child(5) {
+  transform: rotateX(90deg) translateZ(100px); }
+
+.side:nth-child(2) {
+  transform: rotateX(-90deg) translateZ(100px); }
+
+.show-1 {
+  transform: rotateX(720deg) rotateZ(-720deg); }
+
+.show-6 {
+  transform: rotateX(-900deg) rotateZ(1080deg); }
+
+.show-3 {
+  transform: rotateY(-450deg) rotateZ(-1440deg); }
+
+.show-4 {
+  transform: rotateY(810deg) rotateZ(720deg); }
+
+.show-5 {
+  transform: rotateX(-810deg) rotateZ(-1080deg); }
+
+.show-2 {
+  transform: rotateX(450deg) rotateZ(-720deg); }
+
+/* Dice Dots */
+.two-1, .three-1, .four-1, .five-1, .six-1 {
+  top: 20%;
+  left: 20%; }
+
+.four-3, .five-3, .six-4 {
+  top: 20%;
+  left: 80%; }
+
+.one-1, .three-2, .five-5 {
+  top: 50%;
+  left: 50%; }
+
+.four-2, .five-2, .six-3 {
+  top: 80%;
+  left: 20%; }
+
+.two-2, .three-3, .four-4, .five-4, .six-6 {
+  top: 80%;
+  left: 80%; }
+
+.six-2 {
+  top: 50%;
+  left: 20%; }
+
+.six-5 {
+  top: 50%;
+  left: 80%; }
+
+/* CLEARFIX */
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both; }
