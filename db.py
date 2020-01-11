@@ -1,4 +1,4 @@
-from flask import Flask, request 
+from flask import Flask, request, flash
 import sqlite3 # enable control of an sqlite database
 import functions as func
 
