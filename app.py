@@ -101,6 +101,7 @@ def blackjack():
     if 'user' in session:
         return render_template("blackjack.html",
                                 coins = dbase.userInfo['coins'],
+                                deck = bj.deck,
                                 cards = bj.playerDeck,
                                 dcards = bj.dealerDeck,
                                 total = bj.getTotal(bj.playerDeck),

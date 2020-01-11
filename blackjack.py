@@ -27,15 +27,18 @@ def getNewDeck():
     request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=104'.format(deckID),headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
-    deck.extend(data['cards'])
+    for d in data['cards']:
+        tup = (getVal(d['value']),d['image'])
+        deck.append(tup)
+    #print(deck)
 
 def addCard(d,f):
     if len(deck) == 0:
         getNewDeck()
     if (d == playerDeck):
-        d.append((getVal(deck[0]['value']),deck[0]['image'],f))
+        d.append((deck[0][0],deck[0][1],f))
     else:
-        d.append((getVal(deck[0]['value']),deck[0]['image'],f))
+        d.append((deck[0][0],deck[0][1],f))
     deck.pop(0)
 
 def start():
@@ -125,7 +128,7 @@ def play():
 
 def checkBJ():
     if len(playerDeck) == 2 and getTotal(playerDeck) == 21:
-        print("blackjack")
+        #print("blackjack")
         gameStatus = "win"
         dbase.userInfo['coins'] += int(2 * wager)
         gameStatus = "standby"
