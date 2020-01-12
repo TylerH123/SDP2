@@ -15,41 +15,18 @@
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
-  <div class="funds">
-    Coins: <div class="mirtext" id="coins">{{ coins }}</div><br>
-  </div>
   <center>
+    <div id="msg" class="funds"></div>
+    <div class="funds">
+      Coins: <div class="mirtext" id="coins">{{ coins }}</div><br>
+      Farm Level: <div class="mirtext" id="lvl">{{ flvl }}</div><br>
+      Coins required for next upgrade: <div class="mirtext" id ="up">{{ up }}</div><br>
+    </div>
     Broccoli: <div class="mirtext" id="broc">0</div><br>
     <button id="gbutton" class="mirbutton">Click to Grow Broccoli</button>
-    <button id="sellbutton" class="mirbutton">Click to Sell Broccoli</button>
+    <button id="sellbutton" class="mirbutton">Click to Sell Broccoli</button><br>
+    <button id="upbutton" class="mirbutton">Click to Upgrade Farm</button>
   </center>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    var ele = document.getElementById("broc");
-    var clicker = function() {
-      var broc = document.getElementById("broc").innerHTML;
-      var num = broc;
-      //console.log(typeof broc)
-      //console.log(parseInt(broc))
-      num++;
-      ele.innerHTML = num;
-    };
-    var sell = function() {
-      //console.log(document.getElementById("broc").innerHTML)
-      $.ajax({
-        url: '/makeItRain/sell',
-        type: 'GET',
-        data: {'coins': document.getElementById("broc").innerHTML.toString()}
-      });
-      var broc = document.getElementById("broc").innerHTML;
-      var coins = document.getElementById("coins");
-      //console.log(parseInt(coins.innerHTML) + 1);
-      coins.innerHTML = parseInt(coins.innerHTML) + parseInt(broc);
-      ele.innerHTML = 0;
-    }
-    var button = document.getElementById("gbutton");
-    button.addEventListener('click', clicker);
-    var sbutton = document.getElementById("sellbutton");
-    sbutton.addEventListener('click', sell);
-  </script>
+  <script type="text/javascript" src="../static/scripts/farm.js"></script>
 </body>

@@ -107,3 +107,4 @@ huangT -- 2020-1-11 19:33
 
 huangT -- 2020-1-12 11:46
 - finished clicker game
+- added upgrade system to clicker game

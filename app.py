@@ -176,15 +176,25 @@ def changeWager():
 @app.route("/makeItRain")
 def makeItRain():
     if 'user' in session:
-        return render_template("makeItRain.html",coins = dbase.userInfo['coins'])
+        return render_template("makeItRain.html",
+                                coins = dbase.userInfo['coins'],
+                                flvl = dbase.userInfo['farmLvl'],
+                                up = dbase.userInfo['farmLvl'] * 200)
     else:
         return redirect(url_for("root"))
 
 @app.route("/makeItRain/sell")
 def sell():
     #print(request.args['coins'])
-    dbase.userInfo['coins'] += int(request.args['coins'])
-    return Flask.jsonify({'status': true})
+    dbase.userInfo['coins'] = int(request.args['coins'])
+    return redirect(url_for("makeItRain"))
+
+@app.route("/makeItRain/upgrade")
+def upgrade():
+    #print(request.args)
+    dbase.userInfo['farmLvl'] = int(request.args['lvl'])
+    dbase.userInfo['coins'] = int(request.args['coins'])
+    return redirect(url_for("makeItRain"))
 
 if __name__ == "__main__":
     app.debug = True

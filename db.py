@@ -21,7 +21,7 @@ def addUser(): #adds user to da tabase
                 return False
             else:
                 id = getTableLen("users") #gives the user the next availabe id
-                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0, 0, "new")) #different version of format
+                c.execute("INSERT INTO users VALUES(?, ?, ?, ?, ?, ?, ?);", (id, request.form['username'], request.form['password'], 0, 0, "new", 1)) #different version of format
                 db.commit()
                 db.close()
                 flash("Register Success!")
@@ -74,7 +74,7 @@ def update(): #updates a user's info
     dbfile = "data.db"
     db = sqlite3.connect(dbfile)
     c = db.cursor()
-    arr = ['coins','streak','timeStmp']
+    arr = ['coins','streak','timeStmp','farmLvl']
     idx = 0
     while idx < len(arr):
         command = "UPDATE users SET {} = \"{}\" WHERE id = {};"
@@ -111,6 +111,7 @@ def fillUserInfo(): #fills userInfo with info on the current user
         userInfo['coins'] = bar[3]
         userInfo['streak'] = bar[4]
         userInfo['timeStmp'] = bar[5]
+        userInfo['farmLvl'] = bar[6]
 
 def checkDaily():
     if userInfo['timeStmp'] == "new" or userInfo['streak'] == 0 or func.checkDate(userInfo['timeStmp']) == 1:

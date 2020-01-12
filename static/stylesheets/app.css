@@ -298,6 +298,10 @@ input[type="number"]::placeholder {
   /* Firefox, Chrome, Opera */
   text-align: center;
 }
+input[type="number"] {
+  /* Firefox, Chrome, Opera */
+  text-align: center;
+}
 .mirbutton {
   padding: 15px 25px;
   font-size: 24px;
@@ -308,7 +312,7 @@ input[type="number"]::placeholder {
   background-color: #4CAF50;
   border: none;
   border-radius: 15px;
-  box-shadow: 0 5px #999;
+  box-shadow: 0 8px #999;
 }
 
 .mirbutton:hover {background-color: #3e8e41}
@@ -320,4 +324,8 @@ input[type="number"]::placeholder {
 }
 .mirtext{
   display:inline;
+}
+
+#upbutton {
+  margin-top: 13px;
 }
