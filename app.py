@@ -101,6 +101,7 @@ def blackjack():
     if 'user' in session:
         return render_template("blackjack.html",
                                 coins = dbase.userInfo['coins'],
+                                gamestat = bj.gameStatus,
                                 deck = bj.deck,
                                 cards = bj.playerDeck,
                                 dcards = bj.dealerDeck,
@@ -121,7 +122,7 @@ def loadDeck():
 @app.route("/blackjack/hit")
 def hit():
     if bj.turn == "player":
-        bj.addCard(bj.playerDeck)
+        bj.play()
     return redirect(url_for("blackjack"))
 
 
@@ -141,10 +142,12 @@ def stand():
 
 @app.route("/blackjack/reset")
 def bjReset():
-    if bj.gameStatus == "standby":
+    if bj.checkBal():
         bj.start()
         bj.checkBJ()
         #print(bj.getTotal(bj.playerDeck))
+    else:
+        flash("You cannot wager more than your current balance")
     return redirect(url_for("blackjack"))
 
 @app.route("/blackjack/bjstart")

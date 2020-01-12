@@ -70,3 +70,6 @@ huangT -- 2020-1-10 18:29
 - added checking for blackjack and made sure the dealer cards were concealed
 - set limits to wager
 - finished blackjack
+
+huangT -- 2020-1-11 19:33
+- added checkBal function to make sure you can't get a negative balance

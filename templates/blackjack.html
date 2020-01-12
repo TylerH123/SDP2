@@ -32,9 +32,11 @@
   <form action="/blackjack/stand">
     <button class="button large">Stand</button>
   </form>
-  <form action="/blackjack/reset">
-    <button class="button large">Reset</button>
-  </form>
+  {% if gamestat == "standby" %}
+    <form action="/blackjack/reset">
+      <button class="button large">Play Again</button>
+    </form>
+  {% endif %}
   <div id="player">
     {% for card in cards %}
       <img src={{ card[1] }}>
