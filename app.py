@@ -102,6 +102,7 @@ def blackjack():
         return render_template("blackjack.html",
                                 coins = dbase.userInfo['coins'],
                                 gamestat = bj.gameStatus,
+                                wager = bj.wager,
                                 deck = bj.deck,
                                 cards = bj.playerDeck,
                                 dcards = bj.dealerDeck,
@@ -124,7 +125,6 @@ def hit():
     if bj.turn == "player":
         bj.play()
     return redirect(url_for("blackjack"))
-
 
 @app.route("/blackjack/fold")
 def fold():
@@ -167,6 +167,34 @@ def craps():
         return render_template("craps.html")
     else:
         return redirect(url_for("root"))
+
+@app.route("/blackjack/changeWager")
+def changeWager():
+    bj.wager = int(request.args['wager'])
+    return redirect(url_for("blackjack"))
+
+@app.route("/makeItRain")
+def makeItRain():
+    if 'user' in session:
+        return render_template("makeItRain.html",
+                                coins = dbase.userInfo['coins'],
+                                flvl = dbase.userInfo['farmLvl'],
+                                up = dbase.userInfo['farmLvl'] * 200)
+    else:
+        return redirect(url_for("root"))
+
+@app.route("/makeItRain/sell")
+def sell():
+    #print(request.args['coins'])
+    dbase.userInfo['coins'] = int(request.args['coins'])
+    return redirect(url_for("makeItRain"))
+
+@app.route("/makeItRain/upgrade")
+def upgrade():
+    #print(request.args)
+    dbase.userInfo['farmLvl'] = int(request.args['lvl'])
+    dbase.userInfo['coins'] = int(request.args['coins'])
+    return redirect(url_for("makeItRain"))
 
 if __name__ == "__main__":
     app.debug = True

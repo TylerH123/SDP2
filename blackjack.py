@@ -19,12 +19,12 @@ turn = "player"
 gameStatus = "ingame"
 wager = 0
 
-def getNewDeck():
-    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2',headers = headers)
+def getNewDeck(): #gets a new set of 312 cards. the values and images are stored into deck array
+    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6',headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     deckID = data['deck_id']
-    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=104'.format(deckID),headers = headers)
+    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=312'.format(deckID),headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     for d in data['cards']:
@@ -32,7 +32,7 @@ def getNewDeck():
         deck.append(tup)
     #print(deck)
 
-def addCard(d,f):
+def addCard(d,f): #removes the first card of deck array and adds it to the appropriate deck
     if len(deck) == 0:
         getNewDeck()
     if (d == playerDeck):
@@ -41,7 +41,7 @@ def addCard(d,f):
         d.append((deck[0][0],deck[0][1],f))
     deck.pop(0)
 
-def start():
+def start(): #starts the game
     global gameStatus, turn
     gameStatus = "ingame"
     turn = "player"
@@ -55,7 +55,7 @@ def start():
         addCard(dealerDeck,"unflipped")
         addCard(dealerDeck,"flipped")
 
-def clearDeck(d):
+def clearDeck(d): #clears deck @param d
     if d == "all":
         deck.clear()
         playerDeck.clear()
@@ -65,7 +65,7 @@ def clearDeck(d):
     elif d == "dealer":
         dealerDeck.clear()
 
-def getVal(card):
+def getVal(card): #returns the value of @param card
     if card == "JACK" or card == "QUEEN" or card == "KING":
         return 10
     elif card == "ACE":
@@ -73,7 +73,7 @@ def getVal(card):
     else:
         return int(card)
 
-def getTotal(deck):
+def getTotal(deck): #returns the total of @param deck
     val = 0
     if turn == "player" and deck == dealerDeck:
         return deck[1][0]
@@ -81,14 +81,14 @@ def getTotal(deck):
         val += c[0]
     return val
 
-def dealerTurn():
+def dealerTurn(): #acts as the dealer
     tup = (dealerDeck[0][0],dealerDeck[0][1],"flipped")
     dealerDeck.pop(0)
     dealerDeck.insert(0, tup)
     while getTotal(dealerDeck) < 17:
         addCard(dealerDeck,"flipped")
 
-def play():
+def play(): #game rules
     global gameStatus
     #print(gameStatus)
     #print(playerDeck)
@@ -127,7 +127,7 @@ def play():
                 flash("YOU LOST!")
     dbase.update()
 
-def checkBJ():
+def checkBJ(): #check if player has blackjack
     if len(playerDeck) == 2 and getTotal(playerDeck) == 21:
         #print("blackjack")
         gameStatus = "win"
@@ -135,7 +135,7 @@ def checkBJ():
         gameStatus = "standby"
         flash("BLACKJACK!")
 
-def checkBal():
+def checkBal(): #makes sure wager is not greater than balance
     if wager > dbase.userInfo['coins']:
         return False
     else:

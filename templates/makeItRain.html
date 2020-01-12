@@ -1,0 +1,32 @@
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Compressed CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
+  <link rel="stylesheet" href="../static/stylesheets/app.css">
+  <title>Homepage</title>
+</head>
+<body>
+  <nav class="hover-underline-menu" data-menu-underline-from-center>
+    <ul class="menu align-center">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/about">Account</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+  <center>
+    <div id="msg" class="funds"></div>
+    <div class="funds">
+      Coins: <div class="mirtext" id="coins">{{ coins }}</div><br>
+      Farm Level: <div class="mirtext" id="lvl">{{ flvl }}</div><br>
+      Coins required for next upgrade: <div class="mirtext" id ="up">{{ up }}</div><br>
+      Broccoli: <div class="mirtext" id="broc">0</div><br>
+    </div>
+    <button id="gbutton" class="mirbutton">Click to Grow Broccoli</button>
+    <button id="sellbutton" class="mirbutton">Click to Sell Broccoli</button><br>
+    <button id="upbutton" class="mirbutton">Click to Upgrade Farm</button>
+  </center>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../static/scripts/farm.js"></script>
+</body>

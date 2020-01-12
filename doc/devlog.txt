@@ -4,6 +4,9 @@ Members: Tyler Huang, William Lin, Ethan Chen, Jiong Hao Wu
 huangT -- 2020-1-06 9:13
 - added design doc, requirements.txt, devlog and flag
 
+chenE -- 2020-1-06 9:20
+- updated design doc: included all front end functions and templates and their usages
+
 linW -- 2020-01-06 21:57
 - revised component map in design doc
 
@@ -13,6 +16,10 @@ linW -- 2020-01-07 10:42
 linW -- 2020-01-07 18:56
 - created login, register, and home pages
 - modified the database values
+
+chenE -- 2020-1-07 20:31
+- began backend stuff by adding functions to the routes
+- about to begin sudoku
 
 huangT -- 2020-1-07 21:30
 - added api documentation
@@ -36,9 +43,18 @@ wuJ -- 2020-1-09 00:30
 - created random number generator from 0 to 36
 - identified whether the number is red or black based on even and odds
 
+chenE -- 2020-1-09 08:10
+- began sudoku game
+- wrote the html to include a basic sudoku grid
+- used the sudoku api to get sudoku templates
 
 huangT -- 2020-1-09 8:44
 - finished js function to send outputs of dice roll to python
+
+chenE -- 2020-1-09 09:20
+- added jinja functions towards sudoku.html to take in input from python
+- and create a board on html from the template
+- looking into how to change the values of each cell
 
 huangT -- 2020-1-09 17:39
 - tuned deck method to get a new deck upon hitting 0 cards
@@ -60,9 +76,17 @@ huangT -- 2020-1-10 08:43
 - added gamestatus and turn to blackjack
 - added a function to check for win/lost/tie
 
+chenE -- 2020-1-10 9:24
+- found a way to change cells into text
+- about to start looking into how to check to see if the boxes are valid
+
 huangT -- 2020-1-10 11:27
 - added reset button
 - added flashing
+
+chenE -- 2020-1-10 12:12
+- start check the values to see if they are only numbers from 1 - 9.
+- now looking into how to check for duplicates in columns
 
 huangT -- 2020-1-10 18:29
 - added wagering to blackjack
@@ -71,5 +95,18 @@ huangT -- 2020-1-10 18:29
 - set limits to wager
 - finished blackjack
 
+chenE -- 2020-1-11 18:32
+- added js functions such that it will change color if there are duplicates in columns AND rows
+- as well as changing the color back to white if the errors have been fixed
+- next step is to check each box, and finally see if the puzzle has been solved and give coins
+
 huangT -- 2020-1-11 19:33
 - added checkBal function to make sure you can't get a negative balance
+- added a way to change wager on the blackjack screen
+- working on a clicker game to get easy income
+
+huangT -- 2020-1-12 11:46
+- finished clicker game
+- added upgrade system to clicker game
+- comments
+- updated readme
