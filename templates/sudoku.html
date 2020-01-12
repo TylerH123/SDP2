@@ -1,0 +1,117 @@
+
+  <html lang="en">
+    <style>
+      table { border-collapse: collapse; font-family: Calibri, sans-serif; }
+      colgroup, tbody { border: solid medium; }
+      td { border: solid thin; height: 5.4em; width: 5.4em; text-align: center; padding: 0; }
+    </style>
+    <head>
+      <meta charset="utf-8"/>
+      <title>
+      Sudoku
+      </title>
+    </head>
+    <body>
+      <input type="button" value="Button"></input>
+      <table>
+      <caption id = "caption">Sudoku of the day</caption>
+      <colgroup><col><col><col>
+      <colgroup><col><col><col>
+      <colgroup><col><col><col>
+      <tbody>
+      {% for row in range(9) %}
+          <tr>
+              {% for col in range(9) %}
+              <td id="{{row}}{{col}}" contenteditable="false">
+                  {% if board[row][col] != 0 %}
+                      <b>{{board[row][col]}}</b>
+                  {% endif %}
+              </td>
+              {% endfor %}
+          </tr>
+          {% if (row + 1) % 3 == 0 %}
+          <tbody>
+          {% endif %}
+      {% endfor %}
+      </table>
+
+    <script>
+    var editable = function(e) {
+        e.target.setAttribute("contenteditable", "true");
+    };
+
+    var lis = document.getElementsByTagName("td");
+    var pastErrors = [];
+    var iterations = 0;
+
+    var checkColumn = function(id){
+        num = parseInt(id.charAt(1));
+        values = []; errors = [];
+        for (var i = num; i < lis.length; i += 9){ //goes thru the column
+          value = lis[i].innerText;
+          if (values.includes(value) && value > 0){ //if the value is not unique then push its id into errors
+              errors.push(lis[i].id);
+              errors.push("xy".replace('x',values.indexOf(value)).replace('y',num)) //the row/column
+          };
+          values.push(value);//push the value in the list of values
+        };
+        return errors; //returns a list of ids with errors
+    };
+
+    var checkRow = function(id){
+        num = parseInt(id.charAt(0));
+        values = []; errors = [];
+        for (var i = (num * 9); i < (num * 9) + 9; i++){
+          value = lis[i].innerText;
+          if (values.includes(value) && value > 0){ //if the value is not unique then push its id into errors
+              errors.push(lis[i].id);
+              errors.push("xy".replace('x',num).replace('y', values.indexOf(value))); //the row/column
+          };
+          values.push(value);//push the value in the list of values
+        };
+        return errors; //returns a list of ids with errors
+    }
+
+    var fixErrors = function(){
+        fixed = []
+        for (var i = 0; i < pastErrors.length; i++){
+          if (!checkColumn(pastErrors[i]).includes(pastErrors[i]) && (!checkRow(pastErrors[i]).includes(pastErrors[i]))){
+            document.getElementById(pastErrors[i]).style.backgroundColor = 'white';
+            fixed.push(pastErrors[i]);
+          };
+        };
+        for (var i = 0; i < fixed.length; i++){
+          pastErrors.splice(pastErrors.indexOf(fixed[i]))
+        }
+    };
+
+    var checkValid = function(e){
+        value = e.target.innerText;
+        errors = [];
+        if (value > 9 || isNaN(value)){
+          e.target.style.backgroundColor = 'red';
+        } else {
+          e.target.style.backgroundColor = 'white';
+        }
+        if (value > 0){
+            errors = errors.concat(checkColumn(e.target.id));
+            errors = errors.concat(checkRow(e.target.id));
+        };
+        for (var i = 0; i < errors.length; i++){
+          if (!pastErrors.includes(errors[i])){
+            pastErrors.push(errors[i]);
+          };
+          document.getElementById(errors[i]).style.backgroundColor = 'red';
+        };
+        fixErrors();
+    };
+
+    for (var i = 0; i < lis.length; i++) {
+        if (lis[i].innerText < 1){
+          lis[i].addEventListener('click', editable);
+          lis[i].addEventListener('mouseout', checkValid);
+        }
+    };
+    </script>
+    </body>
+  </html>
