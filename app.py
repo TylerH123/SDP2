@@ -180,6 +180,12 @@ def makeItRain():
     else:
         return redirect(url_for("root"))
 
+@app.route("/makeItRain/sell")
+def sell():
+    #print(request.args['coins'])
+    dbase.userInfo['coins'] += int(request.args['coins'])
+    return redirect(url_for("makeItRain"))
+
 if __name__ == "__main__":
     app.debug = True
     app.run()
