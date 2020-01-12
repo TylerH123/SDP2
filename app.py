@@ -184,7 +184,7 @@ def makeItRain():
 def sell():
     #print(request.args['coins'])
     dbase.userInfo['coins'] += int(request.args['coins'])
-    return redirect(url_for("makeItRain"))
+    return Flask.jsonify({'status': true})
 
 if __name__ == "__main__":
     app.debug = True
