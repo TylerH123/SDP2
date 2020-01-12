@@ -141,10 +141,13 @@ def stand():
 
 @app.route("/blackjack/reset")
 def bjReset():
-    if bj.gameStatus == "standby":
-        bj.start()
-        bj.checkBJ()
+    if bj.checkBal():
+        if bj.gameStatus == "standby":
+            bj.start()
+            bj.checkBJ()
         #print(bj.getTotal(bj.playerDeck))
+    else:
+        flash("You cannot wager more than your current balance")
     return redirect(url_for("blackjack"))
 
 @app.route("/blackjack/bjstart")

@@ -21,7 +21,7 @@
   <center>
   <form action="/blackjack/loadDeck">
     <p class="funds">Enter wager to play</p>
-    <input type="number" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter wager')" oninput="setCustomValidity('')" required>
+    <input type="number" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
     <input type="submit" class="button large" name="start_button" value="Start">
   </form>
   <form action="/blackjack/howto">

@@ -125,6 +125,7 @@ def play():
                 dbase.userInfo['coins'] -= wager
                 gameStatus = "standby"
                 flash("YOU LOST!")
+    dbase.update()
 
 def checkBJ():
     if len(playerDeck) == 2 and getTotal(playerDeck) == 21:
@@ -133,3 +134,9 @@ def checkBJ():
         dbase.userInfo['coins'] += int(2 * wager)
         gameStatus = "standby"
         flash("BLACKJACK!")
+
+def checkBal():
+    if wager > dbase.userInfo['coins']:
+        return False
+    else:
+        return True
