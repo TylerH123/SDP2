@@ -88,7 +88,7 @@
   background-color: #303030;
 } */
 
-/* .funds{
+.funds{
   margin-right: 10px;
   color: #00ff00;
 }
@@ -99,9 +99,10 @@
   padding-bottom:10px;
 }
 
+/*
 .menu.align-center li a {
   color: #00ff00;
-
+*/
 
 .bjbutton {
   background-color: #4CAF50; //Green
@@ -112,7 +113,7 @@
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-} */
+}
 
 
 
@@ -163,7 +164,7 @@ body {
 .roll-button {
   margin: 15px auto; }
 
-button {
+.roll-button {
   padding: 10px 50px;
   color: #ffffcc;
   background: #AA4F39;
@@ -173,7 +174,7 @@ button {
   outline: none;
   transition: .3s; }
 
-button:hover, button:active {
+.roll-button:hover, .roll-button:active {
   outline: none;
   background: #802915;
   cursor: pointer;
@@ -289,5 +290,3 @@ button:hover, button:active {
   content: "";
   display: table;
   clear: both; }
-=======
->>>>>>> cf283ef7cfb5491e46b830ae386c7417f49bf88c
