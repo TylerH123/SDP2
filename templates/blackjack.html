@@ -24,6 +24,7 @@
     Coins: {{ coins }} <br>
     Your Total: {{ total }} <br>
     Dealer Total: {{ dtotal }} <br>
+    Your Wager: {{ wager }} <br>
   </div>
   <center>
   <form action="/blackjack/hit">
@@ -37,6 +38,11 @@
       <button class="button large">Play Again</button>
     </form>
   {% endif %}
+  <form action="/blackjack/changeWager">
+    <p class="funds">Enter wager to play</p>
+    <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
+    <input type="submit" class="button large" name="start_button" value="Change Wager">
+  </form>
   <div id="player">
     {% for card in cards %}
       <img src={{ card[1] }}>

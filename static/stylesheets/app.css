@@ -290,3 +290,11 @@ body {
   content: "";
   display: table;
   clear: both; }
+
+#wager {
+  width: 10vw;
+}
+input[type="number"]::placeholder {                    
+  /* Firefox, Chrome, Opera */
+  text-align: center;
+}
