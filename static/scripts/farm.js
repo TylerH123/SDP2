@@ -4,14 +4,14 @@ var broc = document.getElementById("broc");
 var lvl = document.getElementById("lvl");
 var coins = document.getElementById("coins");
 var coins = document.getElementById("coins");
-var clicker = function() {
+var clicker = function() { //function to GROW BROCCOLi
   //console.log(broc + 2);
   //console.log(typeof broc)
   //console.log(parseInt(broc))
   ele.innerHTML = parseInt(broc.innerHTML) + 2 * parseInt(lvl.innerHTML);
   msg.innerHTML = "";
 }
-var sell = function() {
+var sell = function() { //converts the grown broccoli to coins
   //console.log(document.getElementById("broc").innerHTML)
   //console.log(parseInt(coins.innerHTML) + 1);
   coins.innerHTML = parseInt(coins.innerHTML) + parseInt(broc.innerHTML);
@@ -23,7 +23,7 @@ var sell = function() {
     data: {'coins': coins.innerHTML}
   });
 }
-var upgrade = function() {
+var upgrade = function() { //upgrades the farm
   //console.log(coins.innerHTML);
   if (parseInt(coins.innerHTML) >= parseInt(lvl.innerHTML * 200)) {
     coins.innerHTML = parseInt(coins.innerHTML) - parseInt(lvl.innerHTML) * 200;
