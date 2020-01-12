@@ -294,7 +294,30 @@ body {
 #wager {
   width: 10vw;
 }
-input[type="number"]::placeholder {                    
+input[type="number"]::placeholder {
   /* Firefox, Chrome, Opera */
   text-align: center;
+}
+.mirbutton {
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px #999;
+}
+
+.mirbutton:hover {background-color: #3e8e41}
+
+.mirbutton:active {
+  background-color: #3e8e41;
+  box-shadow: 0 0px #666;
+  transform: translateY(4px);
+}
+#broc{
+  display:inline;
 }

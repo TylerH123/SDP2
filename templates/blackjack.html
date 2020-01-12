@@ -39,7 +39,6 @@
     </form>
   {% endif %}
   <form action="/blackjack/changeWager">
-    <p class="funds">Enter wager to play</p>
     <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
     <input type="submit" class="button large" name="start_button" value="Change Wager">
   </form>
@@ -51,7 +50,7 @@
   <div id="dealer">
     {% for card in dcards %}
       {% if card[2] == "unflipped" %}
-        <img src="../static/images/facedown.jpg">
+        <img src="../static/images/facedown.png">
       {% else %}
         <img src={{ card[1] }}>
       {% endif %}

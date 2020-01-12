@@ -74,3 +74,4 @@ huangT -- 2020-1-10 18:29
 huangT -- 2020-1-11 19:33
 - added checkBal function to make sure you can't get a negative balance
 - added a way to change wager on the blackjack screen
+- working on a clicker game to get easy income

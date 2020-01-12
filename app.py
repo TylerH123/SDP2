@@ -173,6 +173,12 @@ def changeWager():
     bj.wager = int(request.args['wager'])
     return redirect(url_for("blackjack"))
 
+@app.route("/makeItRain")
+def makeItRain():
+    if 'user' in session:
+        return render_template("makeItRain.html",coins = dbase.userInfo['coins'])
+    else:
+        return redirect(url_for("root"))
 
 if __name__ == "__main__":
     app.debug = True
