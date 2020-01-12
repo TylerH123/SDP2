@@ -1,22 +1,21 @@
-var ele = document.getElementById("broc");
-var msg = document.getElementById("msg");
 var broc = document.getElementById("broc");
+var msg = document.getElementById("msg");
 var lvl = document.getElementById("lvl");
 var coins = document.getElementById("coins");
-var coins = document.getElementById("coins");
+var up = document.getElementById("up");
 var clicker = function() { //function to GROW BROCCOLi
   //console.log(broc + 2);
   //console.log(typeof broc)
   //console.log(parseInt(broc))
-  ele.innerHTML = parseInt(broc.innerHTML) + 2 * parseInt(lvl.innerHTML);
+  broc.innerHTML = parseInt(broc.innerHTML) + 2 * parseInt(lvl.innerHTML);
   msg.innerHTML = "";
 }
 var sell = function() { //converts the grown broccoli to coins
   //console.log(document.getElementById("broc").innerHTML)
   //console.log(parseInt(coins.innerHTML) + 1);
   coins.innerHTML = parseInt(coins.innerHTML) + parseInt(broc.innerHTML);
-  ele.innerHTML = 0;
   msg.innerHTML = "Successfully sold " + broc.innerHTML + " broccoli";
+  broc.innerHTML = 0;
   $.ajax({
     url: '/makeItRain/sell',
     type: 'GET',
