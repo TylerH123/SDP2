@@ -108,7 +108,7 @@ def play(): #game rules
                 dealerTurn()
             if getTotal(dealerDeck) > 21: #comparing totals to determine winner
                 gameStatus = "win"
-                dbase.userInfo['coins'] += int(wager + wager/2)
+                dbase.userInfo['coins'] += int(wager * 1.5)
                 gameStatus = "standby"
                 flash("YOU WON!")
             elif getTotal(playerDeck) == getTotal(dealerDeck):
@@ -117,7 +117,7 @@ def play(): #game rules
                 flash("TIE!")
             elif getTotal(playerDeck) > getTotal(dealerDeck):
                 gameStatus = "win"
-                dbase.userInfo['coins'] += int(wager + wager/2)
+                dbase.userInfo['coins'] += int(wager * 1.5)
                 gameStatus = "standby"
                 flash("YOU WON!")
             elif getTotal(dealerDeck) > getTotal(playerDeck):

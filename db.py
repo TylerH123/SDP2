@@ -114,7 +114,7 @@ def fillUserInfo(): #fills userInfo with info on the current user
         userInfo['farmLvl'] = bar[6]
 
 def checkDaily(): #check to see if eligible for daily reward
-    if userInfo['timeStmp'] == "new" or userInfo['streak'] == 0 or func.checkDate(userInfo['timeStmp']) == 1:
+    if userInfo['timeStmp'] == "new" or userInfo['streak'] == 0 or func.checkDate(userInfo['timeStmp']):
         userInfo['streak'] += 1
         userInfo['coins'] += 500
     elif func.checkDate(userInfo['timeStmp']) == 2:

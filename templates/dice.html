@@ -1,0 +1,52 @@
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Compressed CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
+  <link rel="stylesheet" href="../static/stylesheets/app.css">
+  <title>Homepage</title>
+</head>
+<body>
+  <nav class="hover-underline-menu" data-menu-underline-from-center>
+    <ul class="menu align-center">
+      <li><a href="/home">Home</a></li>
+      <li><a href="/about">Account</a></li>
+      <li><a href="/dice/howToPlay">Logout</a></li>
+      <li><a href="/logout">Logout</a></li>
+    </ul>
+  </nav>
+  <center>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <h1><center class="funds">{{ messages[0] }} </center></h1>
+      {% endif %}
+    {% endwith %}
+    <div class="funds">
+      Coins: {{ coins }} <br>
+    </div>
+    {% if wager == 0 %}
+      <div class="funds">Enter wager to play</div>
+      <form action="/dice/setWager">
+        <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
+        <input type="submit" id="roll" class="button large" name="start_button" value="Roll">
+      </form>
+    {% else %}
+      <div class="funds">Your total: {{ total }}</div>
+      <div class="funds">Dealer total: {{ dtotal }}</div>
+      <div class="funds">Current wager: {{ wager }}</div>
+      <div></div>
+      <form action="/dice/roll">
+        <input type="submit" id="roll" class="button large" name="start_button" value="Roll">
+      </form>
+      <form action="/dice/setWager">
+        <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
+        <input type="submit" class="button large" name="start_button" value="Change Wager">
+      </form>
+    {% endif %}
+    <img src="http://roll.diceapi.com/images/poorly-drawn/d6/{{ num1 }}.png">
+    <img src="http://roll.diceapi.com/images/poorly-drawn/d6/{{ num2 }}.png">
+    <img src="http://roll.diceapi.com/images/poorly-drawn/d6/{{ num3 }}.png">
+    <img src="http://roll.diceapi.com/images/poorly-drawn/d6/{{ num4 }}.png">
+  </center>
+</body>

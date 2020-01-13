@@ -110,3 +110,6 @@ huangT -- 2020-1-12 11:46
 - added upgrade system to clicker game
 - comments
 - updated readme
+
+huangT -- 2020-1-12 20:47
+- added a dice roll game
