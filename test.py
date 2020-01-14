@@ -26,7 +26,7 @@ def card():
 
 @test.route('/sudoku')
 def sudoku():
-    request = Request('http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=2',headers = headers)
+    request = Request('http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=1',headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     board = makeBoard(data['squares'])
