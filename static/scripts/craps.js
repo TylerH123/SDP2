@@ -62,6 +62,7 @@ var elWinOrLoss = document.getElementById('winOrLoss');
 var elCrapsWins = document.getElementById('crapWins');
 var elCrapsLosses = document.getElementById('crapLosses');
 
+
 elComeOut.onclick = function () {comeOutRoll();};
 
 elPointRoll.onclick = function () {pointRoll();};
@@ -74,7 +75,7 @@ function comeOutRoll() {
   var diceTwo = Math.floor(Math.random() * 6 + 1);
   var rollTotal = diceOne + diceTwo;
 
-  console.log(rollTotal + ' ' + diceOne + ' ' + diceTwo);
+  // console.log(rollTotal + ' ' + diceOne + ' ' + diceTwo);
   elDiceOne.classList.toggle('animate');
   elDiceTwo.classList.toggle('animate');
 
@@ -96,15 +97,11 @@ function comeOutRoll() {
   // if rollTotal = 7 or 11; Player wins
   window.CP.exitedLoop(1);if (rollTotal === 7 || rollTotal === 11) {
     console.log('You won!');
-    winCount++;
-    gameCount++;
     elWinOrLoss.innerHTML = 'You Won!';
 
     // cash += betField;
   } else if (rollTotal === 2 || rollTotal === 3 || rollTotal === 12) {
     console.log('You lost!');
-    lossCount++;
-    gameCount++;
     elWinOrLoss.innerHTML = 'LOSER!';
 
     // cash -= betField;
