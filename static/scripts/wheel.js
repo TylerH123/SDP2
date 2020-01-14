@@ -12,7 +12,7 @@ var black = [2, 4, 6, 8, 10, 11, 13, 15, 17, 19, 20, 22, 24, 26, 29, 31, 33, 35]
 
 var s = document.getElementById("moneyPouch");
 var r = document.getElementById("rollAmount");
-s.innerHTML = "100"; //Initializing your wallet at 100
+// s.innerHTML = "100"; //Initializing your wallet at 100
 r.innerHTML = "Round 0"; //Initializing at 0 but cheating through making it a string.
 var countClicks = 0; // Used for "rolleAmount" for counting the rounds
 
@@ -83,29 +83,64 @@ function myFunction() {
 
   if (radio_value == "red") {// If Red is checked...
     if (red.find(colourStreak) != undefined) {// If red IS in the array
-      s.innerHTML = Number(s.innerHTML) + Number(document.getElementById("theBet").value); // Add money
+      s.innerHTML = Number(s.innerHTML) + Number(document.getElementById("theBet").value);
+      $.ajax({
+        url: '/roulette/change',
+        type: 'GET',
+        data: {'coins': s.innerHTML}
+      }); // Add money
     } else
     {
-      s.innerHTML = Number(s.innerHTML) - Number(document.getElementById("theBet").value); // Subtract money
+      s.innerHTML = Number(s.innerHTML) - Number(document.getElementById("theBet").value);
+      $.ajax({
+        url: '/roulette/change',
+        type: 'GET',
+        data: {'coins': s.innerHTML}
+      }); // Subtract money
     }
   } else
   if (radio_value == "black") {// If Black is checked...
     if (black.find(colourStreak) != undefined) {// If black IS in the array
-      s.innerHTML = Number(s.innerHTML) + Number(document.getElementById("theBet").value); // Add money
+      s.innerHTML = Number(s.innerHTML) + Number(document.getElementById("theBet").value);
+      $.ajax({
+        url: '/roulette/change',
+        type: 'GET',
+        data: {'coins': s.innerHTML}
+      }); // Add money
     } else
     {
-      s.innerHTML = Number(s.innerHTML) - Number(document.getElementById("theBet").value); // Subtract money
+      s.innerHTML = Number(s.innerHTML) - Number(document.getElementById("theBet").value);
+      $.ajax({
+        url: '/roulette/change',
+        type: 'GET',
+        data: {'coins': s.innerHTML}
+      }); // Subtract money
     }
   } else
-  if (radio_value == "green") {// If Black is checked...
-    if (zero.find(colourStreak) != undefined) {// If black IS in the array
-      s.innerHTML = Number(s.innerHTML) + (17 *(Number(document.getElementById("theBet").value))); // Add money
+  if (radio_value == "green") {// If green is checked...
+    if (zero.find(colourStreak) != undefined) {// If green IS in the array
+      s.innerHTML = Number(s.innerHTML) + (17 *(Number(document.getElementById("theBet").value)));
+      $.ajax({
+        url: '/roulette/change',
+        type: 'GET',
+        data: {'coins': s.innerHTML}
+      });// Add money
     } else
     {
-      s.innerHTML = Number(s.innerHTML) - Number(document.getElementById("theBet").value); // Subtract money
+      s.innerHTML = Number(s.innerHTML) - Number(document.getElementById("theBet").value);
+      $.ajax({
+        url: '/roulette/change',
+        type: 'GET',
+        data: {'coins': s.innerHTML}
+      });// Subtract money
     }
   } else {//If both buttons arent checked (or if None is checked)
     s.innerHTML = Number(s.innerHTML);
+    $.ajax({
+      url: '/roulette/change',
+      type: 'GET',
+      data: {'coins': s.innerHTML}
+    });
   }
 
   countClicks++;

@@ -5,7 +5,7 @@
 
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
   <link rel="stylesheet" href="../static/stylesheets/app.css"> -->
-  <title>Roulette Wheel</title>
+  <title>Roulette</title>
   <style>
     #divleft{
       width: 45%;
@@ -36,7 +36,7 @@
 <div id="divright">
   <div id="divrightcontainer">
     <p>Your Money</p>
-    <p style="display:inline">&dollar;<p style="display:inline" id="moneyPouch"></p></p>
+    <p style="display:inline">&dollar;<p style="display:inline" id="moneyPouch">{{coins}}</p></p>
     <input type="number" id="theBet" value="10"><br />
     <input type="radio" name="colour" id="blackColour" value="black">Black<br />
     <input type="radio" name="colour" id="redColour" value="red">Red<br />
@@ -45,6 +45,7 @@
   </div>
 </div>
 <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-30d18ea41045577cdb11c797602d08e0b9c2fa407c8b81058b1c422053ad8041.js"></script>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="../static/scripts/wheel.js"></script>
 </body>
 </html>
