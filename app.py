@@ -71,6 +71,7 @@ def home(): #display home page of website
         # read json + reply
         bj.clearDeck("player")
         bj.clearDeck("dealer")
+        func.wager = 0
         return render_template("homepage.html",
                                 coins = dbase.userInfo['coins'],
                                 timeStmp = dbase.userInfo['timeStmp'],
@@ -195,6 +196,47 @@ def upgrade():
     dbase.userInfo['farmLvl'] = int(request.args['lvl'])
     dbase.userInfo['coins'] = int(request.args['coins'])
     return redirect(url_for("makeItRain"))
+
+@app.route("/dice")
+def dice():
+    if 'user' in session:
+        if len(func.rolls) < 4:
+            func.getRolls()
+        return render_template("dice.html",
+                                coins = dbase.userInfo['coins'],
+                                total = 0,
+                                dtotal = 0,
+                                wager = func.wager,
+                                num1 = 1,
+                                num2 = 2,
+                                num3 = 3,
+                                num4 = 4)
+    else:
+        return redirect(url_for("root"))
+
+@app.route("/dice/roll")
+def roll():
+    if 'user' in session:
+        tup = func.rollDice()
+        return render_template("dice.html",
+                                coins = dbase.userInfo['coins'],
+                                total = int(tup[0]) + int(tup[1]),
+                                dtotal = int(tup[2]) + int(tup[3]),
+                                wager = func.wager,
+                                num1 = tup[0],
+                                num2 = tup[1],
+                                num3 = tup[2],
+                                num4 = tup[3])
+    else:
+        return redirect(url_for("root"))
+
+@app.route("/dice/setWager")
+def setWager():
+    if 'user' in session:
+        func.wager = int(request.args['wager'])
+        return redirect(url_for("dice"))
+    else:
+        return redirect(url_for("root"))
 
 if __name__ == "__main__":
     app.debug = True

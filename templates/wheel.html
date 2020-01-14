@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="UTF-8">
 
-<html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
+  <link rel="stylesheet" href="../static/stylesheets/app.css"> -->
+  <title>Roulette Wheel</title>
+  <style>
+    #divleft{
+      width: 45%;
+      height: 500px;
+      float: left;
+    }
 
-      <!-- Compressed CSS -->
-      <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
-      <link rel="stylesheet" href="../static/stylesheets/app.css"> -->
-      <title>Roulette</title>
-  </head>
-  <body>
-    <p id ="red" style = "color:red;"></p>
-    <p id ="black" style = "color:black;"></p>
-    <p id ="demo"></p>
-
-    <button id="1">random number</button>
-
-    <!-- <form action="/" method="POST">
-      <input class="singlebet-box-input" type="text" name="single" placeholder="number 0-36" required>
-      <input class="singlebet-box-submit-button" type="submit" name="submit_button" value="bet">
-      <input type="submit" name="submit_button" value="12P(from 1 to 12)">
-      <input type="submit" name="submit_button" value="12M(from 13 to 24)">
-      <input type="submit" name="submit_button" value="12D(from 25 to 36)">
-      <input type="submit" name="submit_button" value="even">
-      <input type="submit" name="submit_button" value="odd">
-      <input type="submit" name="submit_button" value="red">
-      <input type="submit" name="submit_button" value="black">
-    </form> -->
-    <button id="2">red</button>
-    <button id="3">black</button>
-    <script src="../static/wheel.js"></script>
-  </body>
+    #divright{
+      width: 45%;
+      height: 500px;
+      float: left;
+    }
+  </style>
+</head>
+<div id="divleft">
+  <div id="divleftcontainer">
+    <p>Click the button to display a random number between 0 and 36.</p>
+    <button onclick="myFunction()">Try it</button>
+    <p id="demo"></p>
+    <p>Result:</p> <p id="results"></p>
+    <p id="rollAmount"></p>
+    <p> Last 20 Results: </p>
+    <p id="test"></p>
+    <p> Current colour streak:</p>
+    <p id="colourRows"></p>
+  </div>
+</div>
+<div id="divright">
+  <div id="divrightcontainer">
+    <p>Your Money</p>
+    <p style="display:inline">&dollar;<p style="display:inline" id="moneyPouch"></p></p>
+    <input type="number" id="theBet" value="10"><br />
+    <input type="radio" name="colour" id="blackColour" value="black">Black<br />
+    <input type="radio" name="colour" id="redColour" value="red">Red<br />
+    <input type="radio" name="colour" id="green" value="green">Green<br />
+    <input type="radio" name="colour" id="noColour" value="none" checked="checked">None<br />
+  </div>
+</div>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-30d18ea41045577cdb11c797602d08e0b9c2fa407c8b81058b1c422053ad8041.js"></script>
+<script src="../static/scripts/wheel.js"></script>
+</body>
 </html>
