@@ -19,18 +19,27 @@
         <li><a href="/logout">Logout</a></li>
       </ul>
     </nav>
-    <h1> PHASE </h1>
-    <h1 id = "round"> 1 </h1>
-    <h1 id = "dieOne"> </h1>
-    <h1 id = "dieTwo"> </h1>
-    <h1 id = "winLose"> </h1>
-    <h2 id = "crapWins"></h2>
-    <h2 id = "crapLosses"></h2>
-    <h2 id='winOrLoss'></h2>
-    <button id='comeOutButton' class='roll-button'>Come Out ROLL</button>
-    <button id='pointRollButton' class='roll-button'>POINT ROLL</button>
-    <h2 id="theRoll"></h2>
+    <br>
+    <div class="funds">
+      <center>Coins: <div class="mirtext" id="coins">{{ coins }}</div></center>
+      <center>Your Wager: <div class="mirtext" id="wager">{{ wager }}</div></center><br>
+    </div>
 
+    <center>
+    <form action="/craps/changeWager">
+      <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
+      <input type="submit" class="button large" name="start_button" value="Change Wager">
+    </form>
+    </center>
+    <!-- <h2 id = "crapWins"></h2>
+    <h2 id = "crapLosses"></h2> -->
+
+    <center><h2 id='winOrLoss'></h2></center>
+    <center><button id='comeOutButton' class='roll-button'>Come Out ROLL</button></center>
+    <center><button id='pointRollButton' class='roll-button'>POINT ROLL</button></center>
+    <center><h2 id="theRoll"></h2></center>
+
+    <center style = "margin-right:200px;">
     <div class="dice-board">
     <div class="container-dice">
     <div id='dice1' class="dice dice-one">
@@ -107,8 +116,9 @@
     </div>
     </div>
     </div>
+  </center>
     <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-30d18ea41045577cdb11c797602d08e0b9c2fa407c8b81058b1c422053ad8041.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 
 
