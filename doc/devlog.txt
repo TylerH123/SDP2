@@ -70,7 +70,7 @@ huangT -- 2020-1-09 17:39
 
 linW -- 2020-01-09 18:24
 - started working on craps game
-- made function for random dice rolls 
+- made function for random dice rolls
 
 huangT -- 2020-1-09 19:21
 - removed all javascript from blackjack.html
@@ -79,10 +79,13 @@ huangT -- 2020-1-09 19:21
 - moved blackjack functions into blackjack.py
 - added a dealer to blackjack and a stand button
 
-
 huangT -- 2020-1-10 08:43
 - added gamestatus and turn to blackjack
 - added a function to check for win/lost/tie
+
+linW -- 2020-01-10 9:21
+- successfully implemented code for animating dice rolls
+- styled the craps page to make it look nice
 
 chenE -- 2020-1-10 9:24
 - found a way to change cells into text
@@ -113,6 +116,10 @@ huangT -- 2020-1-11 19:33
 - added a way to change wager on the blackjack screen
 - working on a clicker game to get easy income
 
+linW -- 2020-01-11 21:18
+- added craps link to homepage
+- fixed craps so that it prints messages depending on whether you win, lose, or roll a point
+
 huangT -- 2020-1-12 11:46
 - finished clicker game
 - added upgrade system to clicker game
@@ -126,9 +133,16 @@ chenE -- 2020-13 18:28
 -added checkBox function
 -just need to check for completion
 
+linW -- 2020-01-14 9:22
+-- started implementing the wager function to wager money for craps
+
 chenE -- 2020-1-14 18:07
 - finished sudoku, just need to work on css such that it aligns with the game website design
 
 huangT -- 2020-1-14 21:47
 - updated design doc
-- added instructions to play each game 
+- added instructions to play each game
+
+linW -- 2020-01-15 9:20
+- finished craps so now you win or lose money depending on your wager and the roll
+- finished styling craps
