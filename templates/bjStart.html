@@ -11,7 +11,8 @@
   <nav class="hover-underline-menu" data-menu-underline-from-center>
     <ul class="menu align-center">
       <li><a href="/home">Home</a></li>
-      <li><a href="/about">Account</a></li>
+      <li><a href="/account">Account</a></li>
+      <li><a href="/howToPlay">How to play</a></li>
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
@@ -23,9 +24,6 @@
     <p class="funds">Enter wager to play</p>
     <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
     <input type="submit" class="button large" name="start_button" value="Start">
-  </form>
-  <form action="/blackjack/howto">
-    <button class="button large">How To Play</button>
   </form>
   </center>
 </body>

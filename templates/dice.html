@@ -11,8 +11,8 @@
   <nav class="hover-underline-menu" data-menu-underline-from-center>
     <ul class="menu align-center">
       <li><a href="/home">Home</a></li>
-      <li><a href="/about">Account</a></li>
-      <li><a href="/dice/howToPlay">Logout</a></li>
+      <li><a href="/account">Account</a></li>
+      <li><a href="/howToPlay">How to play</a></li>
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
@@ -29,7 +29,7 @@
       <div class="funds">Enter wager to play</div>
       <form action="/dice/setWager">
         <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
-        <input type="submit" id="roll" class="button large" name="start_button" value="Roll">
+        <input type="submit" id="roll" class="button large" name="start_button" value="Place Wager">
       </form>
     {% else %}
       <div class="funds">Your total: {{ total }}</div>

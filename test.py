@@ -26,11 +26,18 @@ def card():
 
 @test.route('/sudoku')
 def sudoku():
-    request = Request('http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=2',headers = headers)
+    request = Request('http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=1',headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     board = makeBoard(data['squares'])
     return render_template('sudoku.html', board = board)
+
+@test.route("/sudoku/completed")
+def upgrade():
+    #print(request.args)
+    dbase.userInfo['coins'] = int(request.args['coins']) + 250
+    return redirect(url_for("sudoku"))
+
 
 def makeBoard(squares):
     board = [[0 for i in range(9)] for j in range(9)] #makes a default 4x4 2-d array with only 0 for values

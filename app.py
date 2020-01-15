@@ -30,6 +30,10 @@ def login():
 def register():
     return render_template("register.html")
 
+@app.route("/howToPlay")
+def howToPlay():
+    return render_template("howToPlay.html")
+
 @app.route("/update", methods = ["POST", "GET"]) #The page accessed to update your own data
 def update():
     return render_template("update.html")
@@ -49,9 +53,6 @@ def auth():
             return redirect(url_for("login"))
     if request.form['submit_button'] == "Update Info": #If updating info, fill in db
         dbase.updatePass()
-        return redirect(url_for("home"))
-    if request.form['submit_button'] == "Update Key" or request.form['submit_button'] == "Add Key":
-        dbase.updateAPIKey(request.form['submit_button'])
         return redirect(url_for("home"))
 
 @app.route("/logout")
@@ -87,16 +88,6 @@ def about():
 def howToUse():
     return render_template("howToUse.html")
 
-#@app.route("/dice", methods=['POST'])
-#def dice():
-#    data = request.json
-#    win = func.checkDiceWin(data)
-#    if (win):
-#        dbase.userInfo['coins'] += 100;
-#    else:
-#        dbase.userInfo['coins'] -= 100;
-#    return redirect(url_for("home"))
-
 @app.route("/blackjack")
 def blackjack():
     if 'user' in session:
@@ -105,6 +96,7 @@ def blackjack():
                                 gamestat = bj.gameStatus,
                                 wager = bj.wager,
                                 deck = bj.deck,
+                                images = bj.images,
                                 cards = bj.playerDeck,
                                 dcards = bj.dealerDeck,
                                 total = bj.getTotal(bj.playerDeck),
@@ -115,7 +107,7 @@ def blackjack():
 @app.route("/blackjack/loadDeck")
 def loadDeck():
     if len(bj.deck) == 0:
-        bj.getNewDeck()
+        bj.getDeck()
     bj.start()
     bj.checkBJ()
     bj.wager = int(request.args['wager'])
@@ -160,7 +152,16 @@ def bjStart():
 
 @app.route("/wheel")
 def wheel():
-    return render_template("wheel.html")
+    if 'user' in session:
+        return render_template("wheel.html",coins = dbase.userInfo['coins'])
+    else:
+        return redirect(url_for("root"))
+
+@app.route("/roulette/change")
+def change():
+    print(request.args['coins'])
+    dbase.userInfo['coins'] = int(request.args['coins'])
+    return ""
 
 @app.route("/craps")
 def craps():

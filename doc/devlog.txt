@@ -121,3 +121,14 @@ huangT -- 2020-1-12 11:46
 
 huangT -- 2020-1-12 20:47
 - added a dice roll game
+
+chenE -- 2020-13 18:28
+-added checkBox function
+-just need to check for completion
+
+chenE -- 2020-1-14 18:07
+- finished sudoku, just need to work on css such that it aligns with the game website design
+
+huangT -- 2020-1-14 21:47
+- updated design doc
+- added instructions to play each game 
