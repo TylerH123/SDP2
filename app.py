@@ -165,9 +165,22 @@ def wheel():
 @app.route("/craps")
 def craps():
     if 'user' in session:
-        return render_template("craps.html")
+        return render_template("craps.html",
+                                coins = dbase.userInfo['coins'],
+                                wager = func.wager)
     else:
         return redirect(url_for("root"))
+
+@app.route("/craps/win")
+def crapsWin():
+    #print(request.args['coins'])
+    dbase.userInfo['coins'] = int(request.args['coins'])
+    return redirect(url_for("craps"))
+
+@app.route("/craps/changeWager")
+def crapsWager():
+    func.wager = int(request.args['wager'])
+    return redirect(url_for("craps"))
 
 @app.route("/blackjack/changeWager")
 def changeWager():

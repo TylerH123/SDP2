@@ -26,6 +26,9 @@ huangT -- 2020-1-07 21:30
 - tested a time tracking
 - testing card api
 
+linW -- 2020-01-08 9:12
+- Changed css to make all words green
+
 huangT -- 2020-1-08 18:44
 - fixed card api
 - added database functions and cleaned them up
@@ -65,12 +68,17 @@ huangT -- 2020-1-09 17:39
 - added image for blackjack
 - updated getting card method
 
+linW -- 2020-01-09 18:24
+- started working on craps game
+- made function for random dice rolls 
+
 huangT -- 2020-1-09 19:21
 - removed all javascript from blackjack.html
 - cleaned up blackjack routes
 - successfully adds cards to blackjack.html when hitting
 - moved blackjack functions into blackjack.py
 - added a dealer to blackjack and a stand button
+
 
 huangT -- 2020-1-10 08:43
 - added gamestatus and turn to blackjack
