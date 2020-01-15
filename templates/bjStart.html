@@ -16,14 +16,14 @@
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
-  <div class="funds">
-    Coins: {{ coins }} <br>
-  </div>
   <center>
-  <form action="/blackjack/loadDeck">
-    <p class="funds">Enter wager to play</p>
-    <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
-    <input type="submit" class="button large" name="start_button" value="Start">
-  </form>
+    <div class="funds">
+      Coins: {{ coins }} <br>
+    </div>
+    <form action="/blackjack/loadDeck">
+      <p class="funds">Enter wager to play</p>
+      <input type="number" id="wager" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
+      <input type="submit" class="button large" name="start_button" value="Start">
+    </form>
   </center>
 </body>
