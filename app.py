@@ -34,11 +34,7 @@ def register():
 def howToPlay():
     return render_template("howToPlay.html")
 
-@app.route("/update", methods = ["POST", "GET"]) #The page accessed to update your own data
-def update():
-    return render_template("update.html")
-
-@app.route("/auth", methods = ["POST"]) #This route authenticates registration and log in, and other updates
+@app.route("/auth", methods = ["POST"]) #This route authenticates registration and log in
 def auth():
     if request.form['submit_button'] == "Sign me up": #If you were sent here by registering
         if dbase.addUser():
@@ -51,9 +47,6 @@ def auth():
             return redirect(url_for("home"))
         else:
             return redirect(url_for("login"))
-    if request.form['submit_button'] == "Update Info": #If updating info, fill in db
-        dbase.updatePass()
-        return redirect(url_for("home"))
 
 @app.route("/logout")
 def logout():

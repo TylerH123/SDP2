@@ -53,23 +53,6 @@ def login(): #login function
         flash("Error! Username does not exist")
         return False
 
-def updatePass(): #updates a user's password
-    dbfile = "data.db"
-    db = sqlite3.connect(dbfile)
-    c = db.cursor()
-    blank = True
-    if request.form['password'] != "":
-        command = "UPDATE users SET {} = \"{}\" WHERE id = {};"
-        c.execute(command.format('password',request.form['password'],userID))
-        blank = False
-        db.commit()
-    if not blank:
-        flash("Update Success!")
-    else:
-        flash("Nothing has been updated.")
-    db.commit()
-    db.close()
-
 def update(): #updates a user's info
     dbfile = "data.db"
     db = sqlite3.connect(dbfile)
