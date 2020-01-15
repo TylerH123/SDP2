@@ -50,9 +50,6 @@ def auth():
     if request.form['submit_button'] == "Update Info": #If updating info, fill in db
         dbase.updatePass()
         return redirect(url_for("home"))
-    if request.form['submit_button'] == "Update Key" or request.form['submit_button'] == "Add Key":
-        dbase.updateAPIKey(request.form['submit_button'])
-        return redirect(url_for("home"))
 
 @app.route("/logout")
 def logout():
