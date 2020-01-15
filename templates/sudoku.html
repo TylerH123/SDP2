@@ -1,42 +1,47 @@
 
-  <html lang="en">
-    <style>
-      table { border-collapse: collapse; font-family: Calibri, sans-serif; }
-      colgroup, tbody { border: solid medium; }
-      td { border: solid thin; height: 5.4em; width: 5.4em; text-align: center; padding: 0; }
-    </style>
-    <head>
-      <meta charset="utf-8"/>
-      <title>
-      Sudoku
-      </title>
-    </head>
-    <body>
-      <h1 id= "h"><h1>
-      <table>
-      <caption id = "caption">Sudoku Puzzle</caption>
-      <colgroup><col><col><col>
-      <colgroup><col><col><col>
-      <colgroup><col><col><col>
-      <tbody>
-      {% for row in range(9) %}
-          <tr>
-              {% for col in range(9) %}
-              <td id="{{row}}{{col}}" contenteditable="false">
-                  {% if board[row][col] != 0 %}
-                      <b>{{board[row][col]}}</b>
-                  {% endif %}
-              </td>
-              {% endfor %}
-          </tr>
-          {% if (row + 1) % 3 == 0 %}
-          <tbody>
-          {% endif %}
-      {% endfor %}
-      </table>
-      <button id="b">The button</button>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="/../static/stylesheets/sudoku.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.3/dist/css/foundation.min.css">
+ <head>
+   <meta charset="utf-8"/>
+   <title>
+   Sudoku
+   </title>
+ </head>
+ <body>
+   <nav class="hover-underline-menu" data-menu-underline-from-center>
+     <ul class="menu align-center">
+       <li><a href="/home">Home</a></li>
+       <li><a href="/about">Account</a></li>
+       <li><a href="/logout">Logout</a></li>
+     </ul>
+   </nav>
+   <center>
+   <h1 id= "h"><h1>
+   <table class="sudotable">
+   <caption id = "caption">Sudoku Puzzle</caption>
+   <colgroup class="sudocol"><col><col><col>
+   <colgroup class="sudocol"><col><col><col>
+   <colgroup class="sudocol"><col><col><col>
+   <tbody class="sudotbody">
+   {% for row in range(9) %}
+       <tr>
+           {% for col in range(9) %}
+           <td id="{{row}}{{col}}" contenteditable="false" class="sudotd">
+               {% if board[row][col] != 0 %}
+                   <b>{{board[row][col]}}</b>
+               {% endif %}
+           </td>
+           {% endfor %}
+       </tr>
+       {% if (row + 1) % 3 == 0 %}
+       <tbody class="sudotbody">
+       {% endif %}
+   {% endfor %}
+   </table>
+   <a id="b" class="button success">Finish</a>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type = "text/javascript" src="/static/scripts/sudoku.js"></script>
-    </body>
-  </html>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ <script type = "text/javascript" src="/static/scripts/sudoku.js"></script>
+ </body>
+</html>
