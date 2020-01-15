@@ -32,6 +32,13 @@ def sudoku():
     board = makeBoard(data['squares'])
     return render_template('sudoku.html', board = board)
 
+@test.route("/sudoku/completed")
+def upgrade():
+    #print(request.args)
+    dbase.userInfo['coins'] = int(request.args['coins']) + 250
+    return redirect(url_for("sudoku"))
+
+
 def makeBoard(squares):
     board = [[0 for i in range(9)] for j in range(9)] #makes a default 4x4 2-d array with only 0 for values
     for square in squares:

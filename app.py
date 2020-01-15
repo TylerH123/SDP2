@@ -160,7 +160,16 @@ def bjStart():
 
 @app.route("/wheel")
 def wheel():
-    return render_template("wheel.html")
+    if 'user' in session:
+        return render_template("wheel.html",coins = dbase.userInfo['coins'])
+    else:
+        return redirect(url_for("root"))
+
+@app.route("/roulette/change")
+def change():
+    print(request.args['coins'])
+    dbase.userInfo['coins'] = int(request.args['coins'])
+    return ""
 
 @app.route("/craps")
 def craps():

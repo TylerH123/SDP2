@@ -100,22 +100,22 @@ for (var i = 0; i < lis.length; i++){
     if (lis[i].innerText < 1){
       lis[i].addEventListener('click', editable);
       lis[i].addEventListener('mouseout', checkValid);
-    }
+    };
 };
 
-// var checkFinished() = function(e){
-//   for (var i = 0; i < lis.length; i++){
-//     value = lis[i].innerText;
-//     if (value < 1){
-//       document.getElementById("h").innerHTML = "Not finished yet!";
-//       break;
-//     };
-//     if (value > 1 && lis[lis.length - 1] == lis[i]){
-//
-//     }
-//   };
-//
-// }
+var checkFinished = function(e){
+  for (var i = 0; i < lis.length; i++){
+    value = lis[i].innerText;
+    if (value < 1){
+      document.getElementById("h").innerHTML = "Not finished yet! Keep on going!";
+      break;
+    };
+    if ((value > 1) && (i == lis.length - 1)){
+      document.getElementById("h").innerHTML = "COMPLETED!";
+    };
+  };
+
+}
 
 var button = document.getElementById("b");
 button.addEventListener('click', checkFinished);
