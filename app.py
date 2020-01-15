@@ -30,6 +30,10 @@ def login():
 def register():
     return render_template("register.html")
 
+@app.route("/howToPlay")
+def howToPlay():
+    return render_template("howToPlay.html")
+
 @app.route("/update", methods = ["POST", "GET"]) #The page accessed to update your own data
 def update():
     return render_template("update.html")
@@ -83,16 +87,6 @@ def about():
 @app.route("/howToUse")
 def howToUse():
     return render_template("howToUse.html")
-
-#@app.route("/dice", methods=['POST'])
-#def dice():
-#    data = request.json
-#    win = func.checkDiceWin(data)
-#    if (win):
-#        dbase.userInfo['coins'] += 100;
-#    else:
-#        dbase.userInfo['coins'] -= 100;
-#    return redirect(url_for("home"))
 
 @app.route("/blackjack")
 def blackjack():
