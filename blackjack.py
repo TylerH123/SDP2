@@ -35,10 +35,7 @@ def getNewDeck(): #gets a new set of 312 cards. the values and images are stored
 def addCard(d,f): #removes the first card of deck array and adds it to the appropriate deck
     if len(deck) == 0:
         getNewDeck()
-    if (d == playerDeck):
-        d.append((deck[0][0],deck[0][1],f))
-    else:
-        d.append((deck[0][0],deck[0][1],f))
+    d.append((deck[0][0],deck[0][1],f))
     deck.pop(0)
 
 def start(): #starts the game
@@ -104,7 +101,7 @@ def play(): #game rules
                 gameStatus = "standby"
                 flash("YOU LOST!")
         if turn == "dealer":
-            if getTotal(dealerDeck) < 17: #while dealer has a total less than 17, keep drawing
+            if getTotal(dealerDeck) < 17 or dealerDeck[0][2] == "unflipped": #while dealer has a total less than 17, keep drawing
                 dealerTurn()
             if getTotal(dealerDeck) > 21: #comparing totals to determine winner
                 gameStatus = "win"
@@ -130,7 +127,7 @@ def play(): #game rules
 def checkBJ(): #check if player has blackjack
     if len(playerDeck) == 2 and getTotal(playerDeck) == 21:
         #print("blackjack")
-        gameStatus = "win"
+        gameStatus = "blackjack"
         dbase.userInfo['coins'] += int(2 * wager)
         gameStatus = "standby"
         flash("BLACKJACK!")
