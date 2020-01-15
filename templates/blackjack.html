@@ -45,15 +45,15 @@
   </form>
   <div id="player">
     {% for card in cards %}
-      <img src={{ card[1] }}>
+      <img src={{ images[card[0]] }}>
     {% endfor %}
   </div>
   <div id="dealer">
     {% for card in dcards %}
-      {% if card[2] == "unflipped" %}
+      {% if card[1] == "unflipped" %}
         <img src="../static/images/facedown.png">
       {% else %}
-        <img src={{ card[1] }}>
+        <img src={{ images[card[0]] }}>
       {% endif %}
     {% endfor %}
   </div>

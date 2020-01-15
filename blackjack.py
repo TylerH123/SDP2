@@ -1,6 +1,6 @@
 from flask import Flask, flash
 from urllib.request import urlopen, Request
-import json
+import json, random
 import db as dbase
 
 headers = {
@@ -13,30 +13,29 @@ headers = {
 }
 
 deck = []
+images = []
 playerDeck = []
 dealerDeck = []
 turn = "player"
 gameStatus = "ingame"
 wager = 0
 
-def getNewDeck(): #gets a new set of 312 cards. the values and images are stored into deck array
-    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6',headers = headers)
+def getDeck(): #gets a deck of 52 cards. the values and images are stored into deck array and images array, respectively
+    request = Request('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1',headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     deckID = data['deck_id']
-    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=312'.format(deckID),headers = headers)
+    request = Request('https://deckofcardsapi.com/api/deck/{}/draw/?count=52'.format(deckID),headers = headers)
     response = urlopen(request).read()
     data = json.loads(response)
     for d in data['cards']:
-        tup = (getVal(d['value']),d['image'])
-        deck.append(tup)
+        images.append(d['image'])
+        deck.append(getVal(d['value']))
     #print(deck)
 
-def addCard(d,f): #removes the first card of deck array and adds it to the appropriate deck
-    if len(deck) == 0:
-        getNewDeck()
-    d.append((deck[0][0],deck[0][1],f))
-    deck.pop(0)
+def addCard(d,f): #gets a random index of a card from deck array and adds it to deck @param d
+    idx = random.randint(0,51);
+    d.append((idx,f))
 
 def start(): #starts the game
     global gameStatus, turn
@@ -70,16 +69,16 @@ def getVal(card): #returns the value of @param card
     else:
         return int(card)
 
-def getTotal(deck): #returns the total of @param deck
+def getTotal(d): #returns the total of @param d
     val = 0
-    if turn == "player" and deck == dealerDeck:
-        return deck[1][0]
-    for c in deck:
-        val += c[0]
+    if turn == "player" and d == dealerDeck:
+        return deck[dealerDeck[1][0]]
+    for c in d:
+        val += deck[c[0]]
     return val
 
 def dealerTurn(): #acts as the dealer
-    tup = (dealerDeck[0][0],dealerDeck[0][1],"flipped")
+    tup = (dealerDeck[0][0],"flipped")
     dealerDeck.pop(0)
     dealerDeck.insert(0, tup)
     while getTotal(dealerDeck) < 17:
@@ -101,7 +100,7 @@ def play(): #game rules
                 gameStatus = "standby"
                 flash("YOU LOST!")
         if turn == "dealer":
-            if getTotal(dealerDeck) < 17 or dealerDeck[0][2] == "unflipped": #while dealer has a total less than 17, keep drawing
+            if getTotal(dealerDeck) < 17 or dealerDeck[0][1] == "unflipped": #while dealer has a total less than 17, keep drawing
                 dealerTurn()
             if getTotal(dealerDeck) > 21: #comparing totals to determine winner
                 gameStatus = "win"

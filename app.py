@@ -96,6 +96,7 @@ def blackjack():
                                 gamestat = bj.gameStatus,
                                 wager = bj.wager,
                                 deck = bj.deck,
+                                images = bj.images,
                                 cards = bj.playerDeck,
                                 dcards = bj.dealerDeck,
                                 total = bj.getTotal(bj.playerDeck),
@@ -106,7 +107,7 @@ def blackjack():
 @app.route("/blackjack/loadDeck")
 def loadDeck():
     if len(bj.deck) == 0:
-        bj.getNewDeck()
+        bj.getDeck()
     bj.start()
     bj.checkBJ()
     bj.wager = int(request.args['wager'])
