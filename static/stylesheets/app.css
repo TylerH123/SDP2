@@ -291,7 +291,7 @@ body {
   display: table;
   clear: both; }
 
-#wager {
+#wager, #theBet {
   width: 10vw;
 }
 input[type="number"]::placeholder {
