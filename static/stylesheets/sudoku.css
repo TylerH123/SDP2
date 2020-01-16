@@ -3,8 +3,8 @@ body {
   perspective: 1000px;
 }
 
-h1{
-  color: #00ff00; 
+h1, #caption{
+  color: #00ff00 !important;
 }
 
 .sudotable { border-collapse: collapse; font-family: Calibri, sans-serif; table-layout: fixed; width: 54em !important;}
