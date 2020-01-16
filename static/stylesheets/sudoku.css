@@ -1,3 +1,12 @@
+body {
+  background: #303030 !important;
+  perspective: 1000px;
+}
+
+h1{
+  color: #00ff00; 
+}
+
 .sudotable { border-collapse: collapse; font-family: Calibri, sans-serif; table-layout: fixed; width: 54em !important;}
 .sudocol, .sudotbody { border: solid medium; }
 .sudotd { border: solid thin; height: 5.4em; width: 5.4em; text-align: center; padding: 0;}
