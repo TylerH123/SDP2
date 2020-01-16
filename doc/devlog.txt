@@ -167,8 +167,8 @@ huangT -- 2020-1-14 21:47
 - added instructions to play each game
 
 wuJ -- 2020-1-14 21:59
-- revamped the Roulette game 
-- now shows streaks of colors as rounds go on 
+- revamped the Roulette game
+- now shows streaks of colors as rounds go on
 - shows past 20 rounds of results
 
 linW -- 2020-01-15 9:20
@@ -177,13 +177,19 @@ linW -- 2020-01-15 9:20
 
 huangT -- 2020-1-15 8:56
 - fixed up css
-- removed unnecessary files 
+- removed unnecessary files
 
 chenE -- 2020-1-15 9:20
 -fixed up the css for sudoku, working on the css for other pages;
 -rewrote the how to play page
 -fixed the nav bar for sudoku
 -updated design doc such that the site map aligns
+
+linW -- 2020-01-15 - 21:47
+- changed the navbar text color to a lighter shade of blue
+- fixed a minor bug in sudoku
+- styled the dice game a bit to make it more clear who's who
+- updated component map in design doc
 
 wuJ -- 2020-1-15 22:56
 - added css for roulette
