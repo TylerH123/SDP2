@@ -70,6 +70,7 @@ huangT -- 2020-1-09 17:39
 
 linW -- 2020-01-09 18:24
 - started working on craps game
+- added craps.html and craps.js
 - made function for random dice rolls
 
 huangT -- 2020-1-09 19:21
@@ -84,7 +85,7 @@ huangT -- 2020-1-10 08:43
 - added a function to check for win/lost/tie
 
 linW -- 2020-01-10 9:21
-- successfully implemented code for animating dice rolls
+- successfully implemented code for animating 3-D dice rolls (it looks really cool)
 - styled the craps page to make it look nice
 
 chenE -- 2020-1-10 9:24
@@ -128,6 +129,9 @@ huangT -- 2020-1-12 11:46
 
 huangT -- 2020-1-12 20:47
 - added a dice roll game
+
+linW -- 2020-01-13 17:04
+- fixed some issues regarding the css of buttons
 
 chenE -- 2020-13 18:28
 -added checkBox function
