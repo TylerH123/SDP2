@@ -110,8 +110,13 @@ var checkFinished = function(e){
       document.getElementById("h").innerHTML = "Not finished yet! Keep on going!";
       break;
     };
-    if ((value > 1) && (i == lis.length - 1)){
+    else if ((value > 1) && (i == lis.length - 1)){
       document.getElementById("h").innerHTML = "COMPLETED!";
+      $.ajax({
+        url: '/sudoku/completed',
+        type: 'GET',
+        data: {'coins': '250'}
+      });
     };
   };
 

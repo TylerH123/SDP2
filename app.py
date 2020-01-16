@@ -247,18 +247,17 @@ def setWager():
 
 @app.route('/sudoku')
 def sudoku():
-    request = Request('http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=1',headers = headers)
-    response = urlopen(request).read()
-    data = json.loads(response)
-    board = [[0 for i in range(9)] for j in range(9)] #makes a default 4x4 2-d array with only 0 for values
-    for square in data['squares']:
-        board[square['x']][square['y']] = square['value']
-    return render_template('sudoku.html', board = board)
+    if 'user' in session:
+        board = [[0 for i in range(9)] for j in range(9)] #makes a default 4x4 2-d array with only 0 for values
+        func.sudoku(board)
+        return render_template('sudoku.html', board = board)
+    else:
+        return redirect(url_for("root"))
 
 @app.route("/sudoku/completed")
 def sudokuCoins():
     #print(request.args)
-    dbase.userInfo['coins'] = int(request.args['coins']) + 250
+    dbase.userInfo['coins'] += int(request.args['coins'])
     return redirect(url_for("sudoku"))
 
 if __name__ == "__main__":
