@@ -1,3 +1,4 @@
+//allows to edit a clicked cell
 var editable = function(e) {
     e.target.setAttribute("contenteditable", "true");
 };
@@ -5,6 +6,7 @@ var editable = function(e) {
 var lis = document.getElementsByTagName("td");
 var pastErrors = [];
 
+//checks each column for repeats and adds them to past errors
 var checkColumn = function(id){
     col = parseInt(id.charAt(1));
     values = []; errors = [];
@@ -19,6 +21,7 @@ var checkColumn = function(id){
     return errors; //returns a list of ids with errors
 };
 
+//checks each row for repeats
 var checkRow = function(id){
     row = parseInt(id.charAt(0));
     values = []; errors = [];
@@ -33,6 +36,7 @@ var checkRow = function(id){
     return errors; //returns a list of ids with errors
 };
 
+//gets a list of the cells in a certain box
 var findBox = function(id){
     row = parseInt(id.charAt(0));
     col = parseInt(id.charAt(1));
@@ -47,6 +51,7 @@ var findBox = function(id){
     return box; //returns a list of the elements
 }
 
+//checks each element of the box for repeats
 var checkBox = function(id){
     box = findBox(id);
     values = []; errors = [];
@@ -61,6 +66,7 @@ var checkBox = function(id){
     return errors;
 }
 
+//sees if any error has been corrected by rechecking everything and seeing if anything is not an error anymore
 var fixErrors = function(){
     fixed = []
     for (var i = 0; i < pastErrors.length; i++){
@@ -74,6 +80,8 @@ var fixErrors = function(){
     }
 };
 
+//calls check column, row and box, and checks to see if inputs are valid
+//changes color to red if invalid
 var checkValid = function(e){
     value = e.target.innerText;
     errors = [];
@@ -96,6 +104,7 @@ var checkValid = function(e){
     fixErrors();
 };
 
+//each cell can be editted and always checked
 for (var i = 0; i < lis.length; i++){
     if (lis[i].innerText < 1){
       lis[i].addEventListener('click', editable);
@@ -103,6 +112,7 @@ for (var i = 0; i < lis.length; i++){
     };
 };
 
+//checks to see if the puzzle is complete
 var checkFinished = function(e){
   for (var i = 0; i < lis.length; i++){
     value = lis[i].innerText;
