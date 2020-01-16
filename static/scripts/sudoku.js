@@ -109,7 +109,7 @@ var checkFinished = function(e){
     if (value < 1){
       document.getElementById("h").innerHTML = "Not finished yet! Keep on going!";
       break;
-    };
+    }
     else if ((value > 1) && (i == lis.length - 1)){
       document.getElementById("h").innerHTML = "COMPLETED!";
       $.ajax({
