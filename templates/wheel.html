@@ -8,17 +8,17 @@
   <link rel="stylesheet" href="../static/stylesheets/app.css">
   <title>Roulette</title>
   <style>
-    #divleft{
-      width: 45%;
-      height: 500px;
-      float: left;
-    }
+  #divleft{
+    width: 45%;
+    height: 500px;
+    float: left;
+  }
 
-    #divright{
-      width: 45%;
-      height: 500px;
-      float: right;
-    }
+  #divright{
+    width: 45%;
+    height: 500px;
+    float: right;
+  }
   </style>
 </head>
 <body>
@@ -29,33 +29,35 @@
       <li><a href="/logout">Logout</a></li>
     </ul>
   </nav>
-  <div id="divleft">
-    <div id="divleftcontainer">
-      <p>Click the button to display a random number between 0 and 36.</p>
-      <button class = "button large" onclick="myFunction()">Spin</button>
-      <p id="demo"></p>
-      <p>Result:</p> <p id="results"></p>
-      <p id="rollAmount"></p>
-      <p> Last 20 Results: </p>
-      <p id="test"></p>
-      <p> Current colour streak:</p>
-      <p id="colourRows"></p>
-    </div>
-  </div>
-  <div id="divright">
+  <center>
     <div id="divrightcontainer">
-      <p>Your Money</p>
-      <p style="display:inline">&dollar;<p style="display:inline" id="moneyPouch">{{coins}}</p></p>
-      <div class ="funds">Place Your Wager</div>
-      <input type="number" id="theBet" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
-      <input type="radio" name="colour" id="blackColour" value="black">Black<br />
-      <input type="radio" name="colour" id="redColour" value="red">Red<br />
-      <input type="radio" name="colour" id="green" value="green">Green<br />
-      <input type="radio" name="colour" id="noColour" value="none" checked="checked">None<br />
+      <h1 id="rollAmount"></h1>
+      <h2>Coins:</h2>
+      <h2 style="display:inline">&dollar;<h2 style="display:inline" id="moneyPouch">{{coins}}</h2></h2>
     </div>
+      <div class = "grid-x cell grid-padding-x align-center">
+        <div class = "small-6 cell">
+          <div class ="funds">Place Your Wager:</div>
+          <input type="radio" name="colour" id="blackColour" value="black">Black<br/>
+          <input type="radio" name="colour" id="redColour" value="red">Red<br/>
+          <input type="radio" name="colour" id="green" value="green">Green<br/>
+          <input type="radio" name="colour" id="noColour" value="none" checked="checked">None<br/>
+          <input type="number" id="theBet" min="1" max={{coins}} name="wager" placeholder="Wager" oninvalid="setCustomValidity('Please enter a valid wager')" oninput="setCustomValidity('')" required>
+          <button class = "button large" onclick="myFunction()">Go!</button><br>
+        </div>
+        <div class = "small-6 cell align-left">
+          <p id="demo"></p>
+          <p>Result:</p> <h2 id="results"></h2>
+          <p> Last 20 Results: </p>
+          <p id="test"></p>
+          <p> Current colour streak:</p>
+          <p id="colourRows"></p>
+        </div>
   </div>
+
+  </center>
   <script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-30d18ea41045577cdb11c797602d08e0b9c2fa407c8b81058b1c422053ad8041.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="../static/scripts/wheel.js"></script>
-  </body>
+</body>
 </html>
