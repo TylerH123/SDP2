@@ -54,3 +54,10 @@ def rollDice(): #get 4 rolls and compare the sums
         flash("You Lose!")
         dbase.userInfo['coins'] -= wager
     return tup
+
+def sudoku(board):
+    request = Request('http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9&level=1',headers = headers)
+    response = urlopen(request).read()
+    data = json.loads(response)
+    for square in data['squares']:
+        board[square['x']][square['y']] = square['value']

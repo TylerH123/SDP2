@@ -14,13 +14,18 @@ var sell = function() { //converts the grown broccoli to coins
   //console.log(document.getElementById("broc").innerHTML)
   //console.log(parseInt(coins.innerHTML) + 1);
   coins.innerHTML = parseInt(coins.innerHTML) + parseInt(broc.innerHTML);
-  msg.innerHTML = "Successfully sold " + broc.innerHTML + " broccoli";
-  broc.innerHTML = 0;
-  $.ajax({
-    url: '/makeItRain/sell',
-    type: 'GET',
-    data: {'coins': coins.innerHTML}
-  });
+  if (parseInt(broc.innerHTML) == 0){
+    msg.innerHTML = "No broccoli to sell...";
+  }
+  else {
+    msg.innerHTML = "Successfully sold " + broc.innerHTML + " broccoli";
+    broc.innerHTML = 0;
+    $.ajax({
+      url: '/makeItRain/sell',
+      type: 'GET',
+      data: {'coins': coins.innerHTML}
+    });
+  }
 }
 var upgrade = function() { //upgrades the farm
   //console.log(coins.innerHTML);
