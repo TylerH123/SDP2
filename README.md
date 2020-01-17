@@ -14,6 +14,7 @@ This is a site where users can play many different games, such as blackjack, rou
 - [Deck of Cards](https://docs.google.com/document/d/1oCJhl-NoNNpekMLd4C4jBXhpL9xvm6ZrVIdfoqbq-Vc/edit) - create games that requires the usage of a deck of cards (Blackjack)
 - [Sudoku](https://docs.google.com/document/d/14Lw3HV3ViifQ-goOmka-vE_yt3o_YpcJIjgnqRbF4ds/edit#heading=h.e1qrjd4103ct) - use a template of sudoku games for one of our minigames
 - [Diceful](https://docs.google.com/document/d/1pvPPwTMcXs1OyTqh5QbucGXou4OOnOis5HjtIT90W5w/edit) - create games that requires the usage of dice (Roulette, Craps)
+- [video demo here](https://youtu.be/X6QNdORJPPA)
 
 
 ### How to run this project
